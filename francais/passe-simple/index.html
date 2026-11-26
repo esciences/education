@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Chronique · Atelier du passé simple</title>
+<meta name="description" content="Entraînement autonome à la conjugaison et à l’emploi du passé simple (3e secondaire).">
+<style>
+:root{
+  --bg:#F7F3EA; --paper:#FFFFFF; --ink:#18223A; --muted:#475069; --line:#D8D0BF; --soft:#EFE8DA;
+  --accent:#A2340B; --accent-ink:#FFFFFF; --accent-soft:#F8E6DC;
+  --teal:#0B6B62; --teal-soft:#DDF0EC;
+  --ok:#1C6530; --ok-bg:#E6F3E9; --ko:#A21A1A; --ko-bg:#FBE9E9; --mid:#7E4300; --mid-bg:#FCF0DC;
+  --focus:#1D4ED8; --fs:1; --lh:1.55; --radius:14px;
+  --serif: Georgia, "Times New Roman", serif;
+  --sans: system-ui, -apple-system, "Segoe UI", Roboto, Arial, "Helvetica Neue", sans-serif;
+}
+html[data-contrast="high"]{
+  --bg:#FFFFFF; --paper:#FFFFFF; --ink:#000000; --muted:#1F1F1F; --line:#000000; --soft:#F2F2F2;
+  --accent:#7A2300; --accent-soft:#FFFFFF; --teal:#004D45; --teal-soft:#FFFFFF;
+  --ok:#004D12; --ok-bg:#FFFFFF; --ko:#8A0000; --ko-bg:#FFFFFF; --mid:#5C3000; --mid-bg:#FFFFFF; --focus:#0033CC;
+}
+html[data-contrast="dark"]{
+  --bg:#10141B; --paper:#1A202A; --ink:#F4F1EA; --muted:#C8CED8; --line:#4A5466; --soft:#232B37;
+  --accent:#FFA37A; --accent-ink:#141414; --accent-soft:#3A2419; --teal:#7FD9CC; --teal-soft:#163330;
+  --ok:#8BE3A6; --ok-bg:#14301E; --ko:#FFA3A3; --ko-bg:#3B1A1A; --mid:#FFD48F; --mid-bg:#3A2A10; --focus:#93B8FF;
+}
+*{box-sizing:border-box}
+html{font-size:calc(100% * var(--fs))}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:var(--lh);
+  background-image:repeating-linear-gradient(0deg, transparent 0 31px, rgba(24,34,58,.045) 31px 32px);}
+html[data-contrast="dark"] body{background-image:none}
+html.simple body, html[data-contrast="high"] body{background-image:none}
+h1,h2,h3{line-height:1.25;margin:0 0 .5em}
+h1{font-family:var(--serif);font-size:clamp(1.6rem,4vw,2.3rem);font-weight:700}
+h2{font-family:var(--serif);font-size:clamp(1.3rem,3vw,1.65rem)}
+h3{font-size:1.1rem}
+html.simple h1, html.simple h2{font-family:var(--sans)}
+p{margin:0 0 .8em}
+a{color:var(--teal)}
+.skip{position:absolute;left:-999px;top:0;background:var(--ink);color:var(--bg);padding:.6em 1em;z-index:10}
+.skip:focus{left:.5rem;top:.5rem}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px;box-shadow:0 0 0 6px color-mix(in srgb, var(--focus) 22%, transparent)}
+.sr{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* Header */
+.top{position:sticky;top:0;z-index:5;background:var(--paper);border-bottom:2px solid var(--ink);}
+.top-in{max-width:1080px;margin:0 auto;display:flex;align-items:center;gap:.8rem;padding:.6rem 1rem;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:.6rem;margin-right:auto;background:none;border:0;padding:0;color:inherit;cursor:pointer;text-align:left;font:inherit}
+.brand svg{width:40px;height:40px;flex:none}
+.brand-name{display:block;font-family:var(--serif);font-weight:700;font-size:1.35rem;letter-spacing:.02em}
+.brand-sub{display:block;font-size:.8rem;color:var(--muted);text-transform:uppercase;letter-spacing:.12em}
+html.simple .brand svg{display:none}
+.tools{display:flex;gap:.5rem;flex-wrap:wrap}
+
+/* Buttons */
+.btn{font:inherit;font-weight:600;display:inline-flex;align-items:center;justify-content:center;gap:.45em;min-height:44px;padding:.55em 1.05em;border-radius:999px;border:2px solid var(--ink);background:var(--paper);color:var(--ink);cursor:pointer;text-decoration:none;line-height:1.2}
+.btn:hover{background:var(--soft)}
+.btn-primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn-primary:hover{background:color-mix(in srgb, var(--accent) 85%, #000)}
+html[data-contrast="dark"] .btn-primary:hover{background:color-mix(in srgb, var(--accent) 85%, #fff)}
+.btn-confort{background:var(--teal);border-color:var(--teal);color:#fff}
+html[data-contrast="dark"] .btn-confort{color:#10141B}
+.btn-confort:hover{background:color-mix(in srgb, var(--teal) 85%, #000)}
+.btn-ghost{border-color:var(--line)}
+.btn-big{font-size:1.1rem;padding:.75em 1.5em}
+.btn[disabled]{opacity:.55;cursor:not-allowed}
+.btn .ico{font-size:1.05em;line-height:1}
+
+/* Layout */
+main{max-width:1080px;margin:0 auto;padding:1.2rem 1rem 3rem}
+main:focus{outline:none}
+.warn{max-width:1080px;margin:.8rem auto 0;padding:.7rem 1rem;border:2px dashed var(--mid);background:var(--mid-bg);color:var(--ink);border-radius:10px}
+.card{background:var(--paper);border:2px solid var(--line);border-radius:var(--radius);padding:1.2rem 1.3rem}
+.hero{display:grid;grid-template-columns:1fr;gap:1rem;margin-bottom:1.2rem}
+.kicker{font-size:.85rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.lead{font-size:1.1rem;color:var(--muted);max-width:60ch}
+.home-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:1.2rem;align-items:start}
+@media (max-width:860px){.home-grid{grid-template-columns:1fr}}
+html.simple .home-grid{grid-template-columns:1fr}
+fieldset{border:0;margin:0 0 1.3rem;padding:0;min-width:0}
+legend{font-weight:700;font-size:1.1rem;margin-bottom:.6rem;padding:0}
+.step{display:inline-grid;place-items:center;width:1.7em;height:1.7em;border-radius:50%;background:var(--ink);color:var(--bg);font-size:.9em;margin-right:.4em}
+
+/* Chapter cards */
+.chapters{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:.7rem}
+.opt{position:relative;display:flex;gap:.7rem;align-items:flex-start;padding:.85rem .9rem;border:2px solid var(--line);border-radius:12px;background:var(--paper);cursor:pointer}
+.opt:hover{border-color:var(--ink)}
+.opt input{width:1.25rem;height:1.25rem;margin:.2rem 0 0;flex:none;accent-color:var(--accent)}
+.opt:has(input:checked){border-color:var(--accent);border-width:3px;padding:calc(.85rem - 1px) calc(.9rem - 1px);background:var(--accent-soft)}
+.opt:has(input:focus-visible){outline:3px solid var(--focus);outline-offset:3px}
+.opt input:focus-visible{outline:none}
+.opt .rom{font-family:var(--serif);font-size:1.5rem;font-weight:700;color:var(--accent);line-height:1;min-width:1.6em}
+html.simple .opt .rom{font-family:var(--sans)}
+.opt .t{display:block;font-weight:700}
+.opt .d{display:block;font-size:.9rem;color:var(--muted)}
+.opt .m{display:block;font-size:.8rem;color:var(--muted);margin-top:.25rem}
+.opt.wide{grid-column:1/-1}
+.sizes{display:flex;gap:.6rem;flex-wrap:wrap}
+.sizes .opt{align-items:center;padding:.6rem 1rem}
+.sizes .opt:has(input:checked){padding:calc(.6rem - 1px) calc(1rem - 1px)}
+.side .card{margin-bottom:1rem}
+.side h2{font-size:1.15rem}
+.side .btn{width:100%;margin-top:.4rem}
+.tip{border-left:5px solid var(--teal);background:var(--teal-soft);padding:.7rem .9rem;border-radius:0 10px 10px 0}
+
+/* Session */
+.sbar{display:flex;flex-wrap:wrap;gap:.5rem 1rem;align-items:center;margin-bottom:.9rem}
+.sbar .where{font-weight:700;margin-right:auto}
+.pill{display:inline-block;padding:.2em .7em;border:1.5px solid var(--line);border-radius:999px;background:var(--paper);font-size:.92rem;font-variant-numeric:tabular-nums}
+.track{height:10px;border-radius:999px;background:var(--soft);border:1px solid var(--line);overflow:hidden;margin-bottom:1rem}
+.track > span{display:block;height:100%;background:var(--teal);transition:width .3s}
+.qcard{background:var(--paper);border:2px solid var(--ink);border-radius:var(--radius);padding:1.3rem 1.4rem;box-shadow:6px 6px 0 var(--soft)}
+html.simple .qcard{box-shadow:none}
+.chap{display:inline-flex;align-items:center;gap:.5em;font-size:.85rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:.4rem}
+.ctx{color:var(--muted);font-style:italic}
+html.simple .ctx{font-style:normal}
+.src{margin:.3rem 0 1rem;padding:.7rem 1rem;border-left:5px solid var(--line);background:var(--soft);border-radius:0 10px 10px 0}
+.src .lab{display:block;font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.qtext{font-size:1.18rem;line-height:calc(var(--lh) + .45);margin:.3rem 0 1rem}
+.qtext.srconly{font-size:1.05rem}
+.fin{font:inherit;font-size:1.05rem;padding:.2em .45em;min-height:40px;border:2px solid var(--ink);border-radius:8px;background:var(--paper);color:var(--ink);vertical-align:baseline;width:9.5em;max-width:100%}
+.fin.end{width:5.2em}
+select.fin{width:auto;padding-right:.2em}
+.slot{display:inline-flex;align-items:center;gap:.2em;white-space:nowrap}
+.mark{display:inline-block;font-weight:700;min-width:1.2em;text-align:center}
+.st-ok .fin{border-color:var(--ok);border-width:3px;background:var(--ok-bg)}
+.st-ko .fin{border-color:var(--ko);border-width:3px;border-style:dashed;background:var(--ko-bg)}
+.st-ok .mark{color:var(--ok)} .st-ko .mark{color:var(--ko)}
+.block-field{margin:.6rem 0 1rem}
+.block-field > label{display:block;font-weight:700;margin-bottom:.3rem}
+.choices{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(12em,100%),1fr));gap:.5rem}
+.choices.subj{grid-template-columns:repeat(auto-fill,minmax(min(9em,100%),1fr))}
+.choice span{overflow-wrap:anywhere}
+.fb > .why{margin-top:.8rem}
+.choice{display:flex;align-items:center;gap:.6rem;padding:.6rem .8rem;border:2px solid var(--line);border-radius:10px;cursor:pointer;background:var(--paper)}
+.choice:hover{border-color:var(--ink)}
+.choice input{width:1.15rem;height:1.15rem;margin:0;accent-color:var(--accent);flex:none}
+.choice:has(input:checked){border-color:var(--ink);border-width:3px;padding:calc(.6rem - 1px) calc(.8rem - 1px)}
+.choice:has(input:focus-visible){outline:3px solid var(--focus);outline-offset:3px}
+.choice input:focus-visible{outline:none}
+.choice.is-ok{border-color:var(--ok);background:var(--ok-bg);border-width:3px}
+.choice.is-ko{border-color:var(--ko);background:var(--ko-bg);border-style:dashed;border-width:3px}
+.choice .tag{margin-left:auto;font-size:.85rem;font-weight:700}
+.choice.is-ok .tag{color:var(--ok)} .choice.is-ko .tag{color:var(--ko)}
+fieldset.grp > legend{font-size:1rem}
+.actions{display:flex;flex-wrap:wrap;gap:.6rem;margin-top:1rem;align-items:center}
+.formmsg{color:var(--ko);font-weight:600}
+
+/* Feedback */
+.fb{margin-top:1.1rem;border-radius:12px;padding:1rem 1.1rem;border:2px solid}
+.fb:focus{outline:3px solid var(--focus);outline-offset:3px}
+.fb h3{display:flex;align-items:center;gap:.5em;margin-bottom:.4rem}
+.fb.ok{border-color:var(--ok);background:var(--ok-bg)}
+.fb.mid{border-color:var(--mid);background:var(--mid-bg)}
+.fb.ko{border-color:var(--ko);background:var(--ko-bg)}
+.fb.hint{border-color:var(--teal);background:var(--teal-soft);border-style:dashed}
+.fb .badge{display:inline-grid;place-items:center;width:1.7em;height:1.7em;border-radius:50%;font-size:.95em;color:var(--paper)}
+.fb.ok .badge{background:var(--ok)} .fb.mid .badge{background:var(--mid)} .fb.ko .badge{background:var(--ko)} .fb.hint .badge{background:var(--teal)}
+.rows{list-style:none;margin:.5rem 0 0;padding:0;display:grid;gap:.6rem}
+.row{background:var(--paper);border:1.5px solid var(--line);border-radius:10px;padding:.6rem .8rem}
+.row .rh{font-weight:700;display:flex;gap:.4em;align-items:baseline;flex-wrap:wrap}
+.row dl{display:grid;grid-template-columns:max-content 1fr;gap:.15rem .8rem;margin:.35rem 0 0}
+.row dt{color:var(--muted)} .row dd{margin:0;font-weight:600;word-break:break-word}
+.row .why{margin:.4rem 0 0}
+.ok-t{color:var(--ok)} .ko-t{color:var(--ko)} .mid-t{color:var(--mid)}
+.pts{font-weight:700;color:var(--teal)}
+
+/* Summary / progress */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:.7rem;margin:1rem 0}
+.tile{border:2px solid var(--line);border-radius:12px;padding:.8rem 1rem;background:var(--paper)}
+.tile .n{display:block;font-family:var(--serif);font-size:2rem;font-weight:700;line-height:1.1}
+html.simple .tile .n{font-family:var(--sans)}
+.tile .l{display:block;color:var(--muted);font-size:.92rem}
+.tile.t-ok{border-color:var(--ok)} .tile.t-mid{border-color:var(--mid)} .tile.t-ko{border-color:var(--ko)}
+.list{list-style:none;padding:0;margin:0;display:grid;gap:.45rem}
+.list li{border:1.5px solid var(--line);border-radius:10px;padding:.55rem .8rem;background:var(--paper)}
+.bar{height:12px;border-radius:999px;background:var(--soft);border:1px solid var(--line);overflow:hidden;margin-top:.3rem}
+.bar > span{display:block;height:100%;background:var(--teal)}
+.prow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:.2rem 1rem;align-items:center}
+.section{margin-top:1.5rem}
+
+/* Dialogs */
+dialog{border:2px solid var(--ink);border-radius:var(--radius);padding:0;background:var(--paper);color:var(--ink);width:min(760px,94vw);max-height:90vh}
+dialog::backdrop{background:rgba(10,14,22,.55)}
+.dlg-h{display:flex;align-items:center;gap:1rem;padding:1rem 1.2rem;border-bottom:2px solid var(--line);position:sticky;top:0;background:var(--paper);z-index:1}
+.dlg-h h2{margin:0;margin-right:auto}
+.dlg-b{padding:1rem 1.2rem 1.4rem}
+.setting{margin-bottom:1.1rem}
+.seg{display:flex;flex-wrap:wrap;gap:.45rem}
+.seg label{display:inline-flex;align-items:center;gap:.45rem;padding:.45rem .8rem;border:2px solid var(--line);border-radius:999px;cursor:pointer}
+.seg label:has(input:checked){border-color:var(--ink);border-width:3px;padding:calc(.45rem - 1px) calc(.8rem - 1px);font-weight:700}
+.seg label:has(input:focus-visible){outline:3px solid var(--focus);outline-offset:3px}
+.seg input{accent-color:var(--accent);width:1.05rem;height:1.05rem;margin:0}
+.switch{display:flex;align-items:flex-start;gap:.7rem;padding:.7rem .8rem;border:2px solid var(--line);border-radius:12px;margin-bottom:.6rem;cursor:pointer}
+.switch input{width:1.3rem;height:1.3rem;margin:.15rem 0 0;accent-color:var(--accent);flex:none}
+.switch .st{display:block;font-weight:700}
+.switch .sd{display:block;font-size:.92rem;color:var(--muted)}
+.note{font-size:.92rem;color:var(--muted)}
+.rappel nav{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1rem}
+.rappel h3{margin-top:1.4rem;font-size:1.15rem;color:var(--accent)}
+.rappel section > h3:first-child{margin-top:0}
+.tw{overflow-x:auto;margin:.5rem 0 1rem}
+table{border-collapse:collapse;width:100%;min-width:480px;font-size:.97rem}
+th,td{border:1.5px solid var(--line);padding:.4rem .55rem;text-align:left;vertical-align:top}
+th{background:var(--soft)}
+.ex{background:var(--soft);border-radius:10px;padding:.6rem .8rem;margin:.4rem 0 .8rem}
+.pitfalls li{margin-bottom:.45rem}
+b.k{color:var(--accent)}
+.foot-note{max-width:1080px;margin:0 auto;padding:0 1rem 1.5rem;color:var(--muted);font-size:.88rem}
+.credits{background:#18223A;color:#F4F1EA;border-top:4px solid var(--accent)}
+html[data-contrast="high"] .credits{background:#000;color:#fff}
+.credits-in{max-width:1080px;margin:0 auto;padding:1.4rem 1rem;display:flex;align-items:center;gap:1.2rem 2rem;flex-wrap:wrap}
+.credits-logo{flex:none;display:block;line-height:0;border-radius:8px}
+.credits-logo img{height:auto;width:200px;max-width:100%}
+.credits-txt{flex:1 1 280px;font-size:.95rem}
+.credits-txt p{margin:0 0 .35em}
+.credits a{color:#FFFFFF;text-decoration:underline;text-underline-offset:2px}
+.credits a:focus-visible{outline-color:#93B8FF}
+
+/* Simplified display */
+html.simple .side .tip, html.simple .deco{display:none}
+html.simple .chapters{grid-template-columns:1fr}
+html.simple .qtext{font-size:1.25rem}
+
+/* Reduced motion */
+html.reduce *, html.reduce *::before, html.reduce *::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+@media (prefers-reduced-motion: reduce){ *{transition:none!important;animation:none!important} }
+
+@media (max-width:560px){
+  .top{position:static}
+  .top-in{padding:.5rem .7rem}
+  .tools .btn .lbl-long{display:none}
+  .qcard{padding:1rem;box-shadow:none}
+  .qtext{font-size:1.08rem}
+  .row dl{grid-template-columns:1fr}
+}
+@media print{.top,.tools,.actions{display:none}}
+
+#dlg-confirm{width:min(460px,92vw)}
+#dlg-confirm h2{margin-bottom:.4rem}
+
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Aller au contenu</a>
+<header class="top">
+  <div class="top-in">
+    <button type="button" class="brand" id="btn-home" aria-label="Chronique, retour à l’accueil">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="var(--accent)"/><path d="M29 9c-7 1-13 6-15 14l-2 7 3-3c7-1 12-7 14-18z" fill="var(--accent-ink)"/><path d="M12 30l9-12" stroke="var(--accent)" stroke-width="1.6" stroke-linecap="round"/></svg>
+      <span><span class="brand-name">Chronique</span><span class="brand-sub">Atelier du passé simple</span></span>
+    </button>
+    <nav class="tools" aria-label="Outils">
+      <button type="button" class="btn btn-ghost" id="btn-rappel" aria-haspopup="dialog"><span class="ico" aria-hidden="true">📖</span> <span>Rappel<span class="lbl-long"> de cours</span></span></button>
+      <button type="button" class="btn btn-confort" id="btn-confort" aria-haspopup="dialog"><span class="ico" aria-hidden="true">Aa</span> <span>Confort de lecture</span></button>
+    </nav>
+  </div>
+</header>
+<div id="storage-warn" class="warn" hidden role="status">Ton navigateur ne permet pas d’enregistrer les données. Tu peux t’entraîner normalement, mais ta progression et tes réglages seront perdus à la fermeture de la page.</div>
+
+<main id="main" tabindex="-1">
+  <section id="screen-home" aria-labelledby="h-home"></section>
+  <section id="screen-session" aria-labelledby="h-session" hidden></section>
+  <section id="screen-summary" aria-labelledby="h-summary" hidden></section>
+  <section id="screen-progress" aria-labelledby="h-progress" hidden></section>
+  <section id="screen-options" aria-labelledby="h-options" hidden></section>
+</main>
+<p class="foot-note">Chronique fonctionne sans compte et sans connexion. Tes résultats restent dans ce navigateur, sur cet appareil.</p>
+<footer class="credits">
+  <div class="credits-in">
+    <a class="credits-logo" href="https://www.esciences.be" target="_blank" rel="noopener"><img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iNTYwIiB6b29tQW5kUGFuPSJtYWduaWZ5IiB2aWV3Qm94PSIwIDAgNDIwIDEzNS4wMDAwMDMiIGhlaWdodD0iMTgwIiBwcmVzZXJ2ZUFzcGVjdFJhdGlvPSJ4TWlkWU1pZCBtZWV0IiB2ZXJzaW9uPSIxLjAiPjxkZWZzPjxnLz48Y2xpcFBhdGggaWQ9IjMxODc2MzUxNGQiPjxwYXRoIGQ9Ik0gNTcgNjkgTCAxMTYuMDMxMjUgNjkgTCAxMTYuMDMxMjUgMTA2LjExMzI4MSBMIDU3IDEwNi4xMTMyODEgWiBNIDU3IDY5ICIgY2xpcC1ydWxlPSJub256ZXJvIi8+PC9jbGlwUGF0aD48Y2xpcFBhdGggaWQ9IjQyNmQ5YzdiOGEiPjxwYXRoIGQ9Ik0gNTcuMDE1NjI1IDY5LjY5OTIxOSBMIDExNi4wMzEyNSA2OS42OTkyMTkgTCAxMTYuMDMxMjUgMTA2LjEwOTM3NSBMIDU3LjAxNTYyNSAxMDYuMTA5Mzc1IFogTSA1Ny4wMTU2MjUgNjkuNjk5MjE5ICIgY2xpcC1ydWxlPSJub256ZXJvIi8+PC9jbGlwUGF0aD48Y2xpcFBhdGggaWQ9IjgwNDBlZTk1OWQiPjxwYXRoIGQ9Ik0gODUuNzM0Mzc1IDcyLjkzNzUgQyA3OC4xNjQwNjIgNjcuNzg1MTU2IDY3Ljk1MzEyNSA2OS4wMjM0MzggNjEuODI4MTI1IDc1LjgzMjAzMSBDIDU1LjcwNzAzMSA4Mi42NDA2MjUgNTUuNTU4NTk0IDkyLjkyOTY4OCA2MS40ODQzNzUgOTkuOTEwMTU2IEMgNjcuMzI0MjE5IDEwMy43NzM0MzggNzQuMzI4MTI1IDEwNi4wMjM0MzggODEuODU1NDY5IDEwNi4wMjM0MzggQyA5Ni45MTQwNjIgMTA2LjAyMzQzOCAxMDkuODcxMDk0IDk3LjAxNTYyNSAxMTUuNjI4OTA2IDg0LjA5NzY1NiBMIDExNS44NTE1NjIgODMuNTg5ODQ0IEMgMTE2LjI3MzQzOCA4Mi40MDIzNDQgMTE2LjEwNTQ2OSA4MS4wNjY0MDYgMTE1LjM3MTA5NCA4MC4wMTE3MTkgQyAxMTQuNTM1MTU2IDc4LjgwNDY4OCAxMTMuMDkzNzUgNzguMTY0MDYyIDExMS42MzY3MTkgNzguMzQ3NjU2IEMgMTEwLjE3OTY4OCA3OC41MzEyNSAxMDguOTQxNDA2IDc5LjUxMTcxOSAxMDguNDI5Njg4IDgwLjg4NjcxOSBDIDEwMi41MzUxNTYgODkuNzY1NjI1IDkwLjE5MTQwNiA4OS45MTAxNTYgODAuOTkyMTg4IDg3LjE5OTIxOSBDIDY5LjA0Njg3NSA4My42Nzk2ODggNzIuMzgyODEyIDY5LjM5NDUzMSA4NS43MzQzNzUgNzIuOTM3NSAiIGNsaXAtcnVsZT0ibm9uemVybyIvPjwvY2xpcFBhdGg+PGNsaXBQYXRoIGlkPSIxNzcxYmVlYTBlIj48cGF0aCBkPSJNIDE2LjI2OTUzMSAyMS45ODQzNzUgTCAxMTQgMjEuOTg0Mzc1IEwgMTE0IDEwMCBMIDE2LjI2OTUzMSAxMDAgWiBNIDE2LjI2OTUzMSAyMS45ODQzNzUgIiBjbGlwLXJ1bGU9Im5vbnplcm8iLz48L2NsaXBQYXRoPjxjbGlwUGF0aCBpZD0iZWZmOGIxMTM5YyI+PHBhdGggZD0iTSAxNi4zMDA3ODEgMjEuOTg0Mzc1IEwgMTEzLjMzNTkzOCAyMS45ODQzNzUgTCAxMTMuMzM1OTM4IDEwMCBMIDE2LjMwMDc4MSAxMDAgWiBNIDE2LjMwMDc4MSAyMS45ODQzNzUgIiBjbGlwLXJ1bGU9Im5vbnplcm8iLz48L2NsaXBQYXRoPjxjbGlwUGF0aCBpZD0iN2UxZDg4ZDczNCI+PHBhdGggZD0iTSAzNC4yNDYwOTQgMzcuMzY3MTg4IEMgMzcuNzA3MDMxIDM3LjM2NzE4OCA0MC41MTE3MTkgNDAuMTc1NzgxIDQwLjUxMTcxOSA0My42MzY3MTkgQyA0MC41MTE3MTkgNDcuMDk3NjU2IDM3LjcwNzAzMSA0OS45MDIzNDQgMzQuMjQ2MDk0IDQ5LjkwMjM0NCBDIDMwLjc4NTE1NiA0OS45MDIzNDQgMjcuOTc2NTYyIDQ3LjA5NzY1NiAyNy45NzY1NjIgNDMuNjM2NzE5IEMgMjcuOTc2NTYyIDQwLjE3NTc4MSAzMC43ODUxNTYgMzcuMzY3MTg4IDM0LjI0NjA5NCAzNy4zNjcxODggTSAyNy4xMjEwOTQgNjguNDE0MDYyIEMgMzAuNTgyMDMxIDY4LjQxNDA2MiAzMy4zOTA2MjUgNzEuMjIyNjU2IDMzLjM5MDYyNSA3NC42ODM1OTQgQyAzMy4zOTA2MjUgNzguMTQ0NTMxIDMwLjU4MjAzMSA4MC45NDkyMTkgMjcuMTIxMDk0IDgwLjk0OTIxOSBDIDIzLjY2MDE1NiA4MC45NDkyMTkgMjAuODU1NDY5IDc4LjE0MDYyNSAyMC44NTU0NjkgNzQuNjgzNTk0IEMgMjAuODU1NDY5IDcxLjIyMjY1NiAyMy42NjQwNjIgNjguNDE0MDYyIDI3LjEyMTA5NCA2OC40MTQwNjIgWiBNIDIwLjI4NTE1NiA1MC43NTM5MDYgQyAyMi40ODgyODEgNTAuNzUzOTA2IDI0LjI3MzQzOCA1Mi41NDI5NjkgMjQuMjczNDM4IDU0Ljc0MjE4OCBDIDI0LjI3MzQzOCA1Ni45NDUzMTIgMjIuNDg4MjgxIDU4LjczMDQ2OSAyMC4yODUxNTYgNTguNzMwNDY5IEMgMTguMDgyMDMxIDU4LjczMDQ2OSAxNi4zMDA3ODEgNTYuOTQ1MzEyIDE2LjMwMDc4MSA1NC43NDIxODggQyAxNi4zMDA3ODEgNTIuNTQyOTY5IDE4LjA4NTkzOCA1MC43NTM5MDYgMjAuMjg1MTU2IDUwLjc1MzkwNiBaIE0gNDUuNDk2MDk0IDIxLjk4NDM3NSBDIDQ3LjY5OTIxOSAyMS45ODQzNzUgNDkuNDg0Mzc1IDIzLjc3MzQzOCA0OS40ODQzNzUgMjUuOTc2NTYyIEMgNDkuNDg0Mzc1IDI4LjE3OTY4OCA0Ny42OTkyMTkgMjkuOTYwOTM4IDQ1LjQ5NjA5NCAyOS45NjA5MzggQyA0My4yOTI5NjkgMjkuOTYwOTM4IDQxLjUwNzgxMiAyOC4xNzU3ODEgNDEuNTA3ODEyIDI1Ljk3NjU2MiBDIDQxLjUwNzgxMiAyMy43NzM0MzggNDMuMjkyOTY5IDIxLjk4NDM3NSA0NS40OTYwOTQgMjEuOTg0Mzc1IFogTSA2NC43ODUxNTYgNzMuMTgzNTk0IEMgNzAuOTEwMTU2IDY4Ljc5Njg3NSA3OS4yODEyNSA2OC41NDY4NzUgODUuNzMwNDY5IDcyLjkzNzUgQyA5OC42MDU0NjkgNzYuMzUxNTYyIDExMy40ODQzNzUgNjguNDI5Njg4IDExMy4xNzU3ODEgNTQuMzM1OTM4IEMgMTEzLjAxOTUzMSA0Ny4wMjM0MzggMTA4LjY0ODQzOCA0Mi42Njc5NjkgMTAyLjkwNjI1IDM4LjY4MzU5NCBDIDkwLjM0Mzc1IDI5Ljk2MDkzOCA3My42Mjg5MDYgMjkuOTAyMzQ0IDYxLjAwNzgxMiAzOC41NDI5NjkgQyA2MS4zMzU5MzggMzQuNTUwNzgxIDU4LjE5MTQwNiAzMS4xNDA2MjUgNTQuMTk1MzEyIDMxLjE0MDYyNSBDIDUwLjQyMTg3NSAzMS4xNDA2MjUgNDcuMzU5Mzc1IDM0LjE5OTIxOSA0Ny4zNTkzNzUgMzcuOTc2NTYyIEMgNDcuMzU5Mzc1IDQxLjI5Njg3NSA0OS43MjI2NTYgNDQuMDYyNSA1Mi44NTkzNzUgNDQuNjc5Njg4IEwgNTIuODYzMjgxIDQ0LjY3OTY4OCBDIDUzLjI0MjE4OCA0NC42Nzk2ODggNTMuNjEzMjgxIDQ0LjcyNjU2MiA1My45NjQ4NDQgNDQuODA4NTk0IEMgNTYuMTA1NDY5IDQ1LjMwODU5NCA1Ny42OTkyMTkgNDcuMjMwNDY5IDU3LjY5OTIxOSA0OS41MTk1MzEgQyA1Ny42OTkyMTkgNTMuMzc4OTA2IDUzLjM1MTU2MiA1NS43NSA1MC4wNTg1OTQgNTMuNDY0ODQ0IEMgNDguNTc4MTI1IDUyLjQzMzU5NCA0Ni42NzE4NzUgNTEuODU1NDY5IDQ0LjgxNjQwNiA1MS44NTU0NjkgQyAzOS42NTIzNDQgNTEuODU1NDY5IDM1LjQ2NDg0NCA1Ni4wNDI5NjkgMzUuNDY0ODQ0IDYxLjIxMDkzOCBDIDM1LjQ2NDg0NCA2Ni4zNzUgMzkuNjUyMzQ0IDcwLjU2MjUgNDQuODE2NDA2IDcwLjU2MjUgTCA0NC45MjE4NzUgNzAuNTM1MTU2IEMgNDUuNTQ2ODc1IDcwLjM2MzI4MSA0Ni4xOTkyMTkgNzAuMjk2ODc1IDQ2Ljg1NTQ2OSA3MC4zNDM3NSBDIDQ5LjgyNDIxOSA3MC41NTA3ODEgNTIuMTY0MDYyIDczLjAyMzQzOCA1Mi4xNjQwNjIgNzYuMDQyOTY5IEMgNTIuMTY0MDYyIDc5LjcxMDkzOCA0OC43OTY4NzUgODIuMzUxNTYyIDQ1LjMwODU5NCA4MS42NDA2MjUgQyA0NS4wODU5MzggODEuNTk3NjU2IDQ0Ljg3MTA5NCA4MS41MzkwNjIgNDQuNjYwMTU2IDgxLjQ3MjY1NiBDIDQ0LjI4OTA2MiA4MS4zOTQ1MzEgNDMuOTA2MjUgODEuMzU1NDY5IDQzLjUxNTYyNSA4MS4zNTU0NjkgQyA0MC4zNTkzNzUgODEuMzU1NDY5IDM3LjgwMDc4MSA4My45MTc5NjkgMzcuODAwNzgxIDg3LjA3MDMxMiBDIDM3LjgwMDc4MSA5MC4yMjY1NjIgNDAuMzU5Mzc1IDkyLjc4NTE1NiA0My41MTU2MjUgOTIuNzg1MTU2IEMgNDkuNTc4MTI1IDkyLjc4NTE1NiA0OC4wMDM5MDYgODUuMzEyNSA1MS44NDM3NSA5MC42NDA2MjUgQyA1NC40Njg3NSA5NC4yODUxNTYgNTcuNzM4MjgxIDk3LjQyOTY4OCA2MS40ODQzNzUgOTkuOTEwMTU2IEMgNTguODEyNSA5Ni43NTc4MTIgNTcuMzc1IDkyLjkzNzUgNTcuMTY0MDYyIDg5LjA2NjQwNiBDIDU2Ljg1OTM3NSA4Ni43ODkwNjIgNTcuMjQ2MDk0IDg0LjAyNzM0NCA1OC4zMDA3ODEgODEuNjQwNjI1IEMgNTcuNDE0MDYyIDg0LjAwNzgxMiA1Ny4wMzUxNTYgODYuNTE5NTMxIDU3LjE2MDE1NiA4OS4wMTU2MjUgQyA1Mi4wNzAzMTIgMzEuNzk2ODc1IDExNS45NDUzMTIgNDUuNzEwOTM4IDk0LjczNDM3NSA2My4xOTUzMTIgQyA5My4wNzgxMjUgNjQuNTYyNSA5MC40MTAxNTYgNjQuODc1IDg3LjMzOTg0NCA2NC44MjAzMTIgQyA3Ny42MDkzNzUgNjMuMTUyMzQ0IDcwLjg1MTU2MiA2Ni44MDA3ODEgNjQuNzg1MTU2IDczLjE4MzU5NCBaIE0gNjQuNzg1MTU2IDczLjE4MzU5NCAiIGNsaXAtcnVsZT0ibm9uemVybyIvPjwvY2xpcFBhdGg+PGNsaXBQYXRoIGlkPSIzYmIwODJlNzFmIj48cmVjdCB4PSIwIiB3aWR0aD0iMjg5IiB5PSIwIiBoZWlnaHQ9IjgzIi8+PC9jbGlwUGF0aD48L2RlZnM+PGcgY2xpcC1wYXRoPSJ1cmwoIzMxODc2MzUxNGQpIj48cGF0aCBmaWxsPSIjZmZmZmZmIiBkPSJNIDg1LjczNDM3NSA3Mi45Mzc1IEMgNzguMTY0MDYyIDY3Ljc4NTE1NiA2Ny45NTMxMjUgNjkuMDIzNDM4IDYxLjgyODEyNSA3NS44MzIwMzEgQyA1NS43MDcwMzEgODIuNjQwNjI1IDU1LjU1ODU5NCA5Mi45Mjk2ODggNjEuNDg0Mzc1IDk5LjkxMDE1NiBDIDY3LjMyNDIxOSAxMDMuNzczNDM4IDc0LjMyODEyNSAxMDYuMDIzNDM4IDgxLjg1NTQ2OSAxMDYuMDIzNDM4IEMgOTYuOTE0MDYyIDEwNi4wMjM0MzggMTA5Ljg3MTA5NCA5Ny4wMTU2MjUgMTE1LjYyODkwNiA4NC4wOTc2NTYgTCAxMTUuODUxNTYyIDgzLjU4OTg0NCBDIDExNi4yNzM0MzggODIuNDAyMzQ0IDExNi4xMDU0NjkgODEuMDY2NDA2IDExNS4zNzEwOTQgODAuMDExNzE5IEMgMTE0LjUzNTE1NiA3OC44MDQ2ODggMTEzLjA5Mzc1IDc4LjE2NDA2MiAxMTEuNjM2NzE5IDc4LjM0NzY1NiBDIDExMC4xNzk2ODggNzguNTMxMjUgMTA4Ljk0MTQwNiA3OS41MTE3MTkgMTA4LjQyOTY4OCA4MC44ODY3MTkgQyAxMDIuNTM1MTU2IDg5Ljc2NTYyNSA5MC4xOTE0MDYgODkuOTEwMTU2IDgwLjk5MjE4OCA4Ny4xOTkyMTkgQyA2OS4wNDY4NzUgODMuNjc5Njg4IDcyLjM4MjgxMiA2OS4zOTQ1MzEgODUuNzM0Mzc1IDcyLjkzNzUgIiBmaWxsLW9wYWNpdHk9IjEiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvZz48ZyBjbGlwLXBhdGg9InVybCgjNDI2ZDljN2I4YSkiPjxnIGNsaXAtcGF0aD0idXJsKCM4MDQwZWU5NTlkKSI+PHBhdGggZmlsbD0iI2ZmZmZmZiIgZD0iTSA1NS41NjI1IDY3Ljc4NTE1NiBMIDExNi4yNzczNDQgNjcuNzg1MTU2IEwgMTE2LjI3NzM0NCAxMDYuMDIzNDM4IEwgNTUuNTYyNSAxMDYuMDIzNDM4IFogTSA1NS41NjI1IDY3Ljc4NTE1NiAiIGZpbGwtb3BhY2l0eT0iMSIgZmlsbC1ydWxlPSJub256ZXJvIi8+PC9nPjwvZz48ZyBjbGlwLXBhdGg9InVybCgjMTc3MWJlZWEwZSkiPjxwYXRoIGZpbGw9IiNmZmZmZmYiIGQ9Ik0gMzQuMjQ2MDk0IDM3LjM2NzE4OCBDIDM3LjcwNzAzMSAzNy4zNjcxODggNDAuNTExNzE5IDQwLjE3NTc4MSA0MC41MTE3MTkgNDMuNjM2NzE5IEMgNDAuNTExNzE5IDQ3LjA5NzY1NiAzNy43MDcwMzEgNDkuOTAyMzQ0IDM0LjI0NjA5NCA0OS45MDIzNDQgQyAzMC43ODUxNTYgNDkuOTAyMzQ0IDI3Ljk3NjU2MiA0Ny4wOTc2NTYgMjcuOTc2NTYyIDQzLjYzNjcxOSBDIDI3Ljk3NjU2MiA0MC4xNzU3ODEgMzAuNzg1MTU2IDM3LjM2NzE4OCAzNC4yNDYwOTQgMzcuMzY3MTg4IE0gMjcuMTIxMDk0IDY4LjQxNDA2MiBDIDMwLjU4MjAzMSA2OC40MTQwNjIgMzMuMzkwNjI1IDcxLjIyMjY1NiAzMy4zOTA2MjUgNzQuNjgzNTk0IEMgMzMuMzkwNjI1IDc4LjE0NDUzMSAzMC41ODIwMzEgODAuOTQ5MjE5IDI3LjEyMTA5NCA4MC45NDkyMTkgQyAyMy42NjAxNTYgODAuOTQ5MjE5IDIwLjg1NTQ2OSA3OC4xNDA2MjUgMjAuODU1NDY5IDc0LjY4MzU5NCBDIDIwLjg1NTQ2OSA3MS4yMjI2NTYgMjMuNjY0MDYyIDY4LjQxNDA2MiAyNy4xMjEwOTQgNjguNDE0MDYyIFogTSAyMC4yODUxNTYgNTAuNzUzOTA2IEMgMjIuNDg4MjgxIDUwLjc1MzkwNiAyNC4yNzM0MzggNTIuNTQyOTY5IDI0LjI3MzQzOCA1NC43NDIxODggQyAyNC4yNzM0MzggNTYuOTQ1MzEyIDIyLjQ4ODI4MSA1OC43MzA0NjkgMjAuMjg1MTU2IDU4LjczMDQ2OSBDIDE4LjA4MjAzMSA1OC43MzA0NjkgMTYuMzAwNzgxIDU2Ljk0NTMxMiAxNi4zMDA3ODEgNTQuNzQyMTg4IEMgMTYuMzAwNzgxIDUyLjU0Mjk2OSAxOC4wODU5MzggNTAuNzUzOTA2IDIwLjI4NTE1NiA1MC43NTM5MDYgWiBNIDQ1LjQ5NjA5NCAyMS45ODQzNzUgQyA0Ny42OTkyMTkgMjEuOTg0Mzc1IDQ5LjQ4NDM3NSAyMy43NzM0MzggNDkuNDg0Mzc1IDI1Ljk3NjU2MiBDIDQ5LjQ4NDM3NSAyOC4xNzk2ODggNDcuNjk5MjE5IDI5Ljk2MDkzOCA0NS40OTYwOTQgMjkuOTYwOTM4IEMgNDMuMjkyOTY5IDI5Ljk2MDkzOCA0MS41MDc4MTIgMjguMTc1NzgxIDQxLjUwNzgxMiAyNS45NzY1NjIgQyA0MS41MDc4MTIgMjMuNzczNDM4IDQzLjI5Mjk2OSAyMS45ODQzNzUgNDUuNDk2MDk0IDIxLjk4NDM3NSBaIE0gNjQuNzg1MTU2IDczLjE4MzU5NCBDIDcwLjkxMDE1NiA2OC43OTY4NzUgNzkuMjgxMjUgNjguNTQ2ODc1IDg1LjczMDQ2OSA3Mi45Mzc1IEMgOTguNjA1NDY5IDc2LjM1MTU2MiAxMTMuNDg0Mzc1IDY4LjQyOTY4OCAxMTMuMTc1NzgxIDU0LjMzNTkzOCBDIDExMy4wMTk1MzEgNDcuMDIzNDM4IDEwOC42NDg0MzggNDIuNjY3OTY5IDEwMi45MDYyNSAzOC42ODM1OTQgQyA5MC4zNDM3NSAyOS45NjA5MzggNzMuNjI4OTA2IDI5LjkwMjM0NCA2MS4wMDc4MTIgMzguNTQyOTY5IEMgNjEuMzM1OTM4IDM0LjU1MDc4MSA1OC4xOTE0MDYgMzEuMTQwNjI1IDU0LjE5NTMxMiAzMS4xNDA2MjUgQyA1MC40MjE4NzUgMzEuMTQwNjI1IDQ3LjM1OTM3NSAzNC4xOTkyMTkgNDcuMzU5Mzc1IDM3Ljk3NjU2MiBDIDQ3LjM1OTM3NSA0MS4yOTY4NzUgNDkuNzIyNjU2IDQ0LjA2MjUgNTIuODU5Mzc1IDQ0LjY3OTY4OCBMIDUyLjg2MzI4MSA0NC42Nzk2ODggQyA1My4yNDIxODggNDQuNjc5Njg4IDUzLjYxMzI4MSA0NC43MjY1NjIgNTMuOTY0ODQ0IDQ0LjgwODU5NCBDIDU2LjEwNTQ2OSA0NS4zMDg1OTQgNTcuNjk5MjE5IDQ3LjIzMDQ2OSA1Ny42OTkyMTkgNDkuNTE5NTMxIEMgNTcuNjk5MjE5IDUzLjM3ODkwNiA1My4zNTE1NjIgNTUuNzUgNTAuMDU4NTk0IDUzLjQ2NDg0NCBDIDQ4LjU3ODEyNSA1Mi40MzM1OTQgNDYuNjcxODc1IDUxLjg1NTQ2OSA0NC44MTY0MDYgNTEuODU1NDY5IEMgMzkuNjUyMzQ0IDUxLjg1NTQ2OSAzNS40NjQ4NDQgNTYuMDQyOTY5IDM1LjQ2NDg0NCA2MS4yMTA5MzggQyAzNS40NjQ4NDQgNjYuMzc1IDM5LjY1MjM0NCA3MC41NjI1IDQ0LjgxNjQwNiA3MC41NjI1IEwgNDQuOTIxODc1IDcwLjUzNTE1NiBDIDQ1LjU0Njg3NSA3MC4zNjMyODEgNDYuMTk5MjE5IDcwLjI5Njg3NSA0Ni44NTU0NjkgNzAuMzQzNzUgQyA0OS44MjQyMTkgNzAuNTUwNzgxIDUyLjE2NDA2MiA3My4wMjM0MzggNTIuMTY0MDYyIDc2LjA0Mjk2OSBDIDUyLjE2NDA2MiA3OS43MTA5MzggNDguNzk2ODc1IDgyLjM1MTU2MiA0NS4zMDg1OTQgODEuNjQwNjI1IEMgNDUuMDg1OTM4IDgxLjU5NzY1NiA0NC44NzEwOTQgODEuNTM5MDYyIDQ0LjY2MDE1NiA4MS40NzI2NTYgQyA0NC4yODkwNjIgODEuMzk0NTMxIDQzLjkwNjI1IDgxLjM1NTQ2OSA0My41MTU2MjUgODEuMzU1NDY5IEMgNDAuMzU5Mzc1IDgxLjM1NTQ2OSAzNy44MDA3ODEgODMuOTE3OTY5IDM3LjgwMDc4MSA4Ny4wNzAzMTIgQyAzNy44MDA3ODEgOTAuMjI2NTYyIDQwLjM1OTM3NSA5Mi43ODUxNTYgNDMuNTE1NjI1IDkyLjc4NTE1NiBDIDQ5LjU3ODEyNSA5Mi43ODUxNTYgNDguMDAzOTA2IDg1LjMxMjUgNTEuODQzNzUgOTAuNjQwNjI1IEMgNTQuNDY4NzUgOTQuMjg1MTU2IDU3LjczODI4MSA5Ny40Mjk2ODggNjEuNDg0Mzc1IDk5LjkxMDE1NiBDIDU4LjgxMjUgOTYuNzU3ODEyIDU3LjM3NSA5Mi45Mzc1IDU3LjE2NDA2MiA4OS4wNjY0MDYgQyA1Ni44NTkzNzUgODYuNzg5MDYyIDU3LjI0NjA5NCA4NC4wMjczNDQgNTguMzAwNzgxIDgxLjY0MDYyNSBDIDU3LjQxNDA2MiA4NC4wMDc4MTIgNTcuMDM1MTU2IDg2LjUxOTUzMSA1Ny4xNjAxNTYgODkuMDE1NjI1IEMgNTIuMDcwMzEyIDMxLjc5Njg3NSAxMTUuOTQ1MzEyIDQ1LjcxMDkzOCA5NC43MzQzNzUgNjMuMTk1MzEyIEMgOTMuMDc4MTI1IDY0LjU2MjUgOTAuNDEwMTU2IDY0Ljg3NSA4Ny4zMzk4NDQgNjQuODIwMzEyIEMgNzcuNjA5Mzc1IDYzLjE1MjM0NCA3MC44NTE1NjIgNjYuODAwNzgxIDY0Ljc4NTE1NiA3My4xODM1OTQgWiBNIDY0Ljc4NTE1NiA3My4xODM1OTQgIiBmaWxsLW9wYWNpdHk9IjEiIGZpbGwtcnVsZT0iZXZlbm9kZCIvPjwvZz48ZyBjbGlwLXBhdGg9InVybCgjZWZmOGIxMTM5YykiPjxnIGNsaXAtcGF0aD0idXJsKCM3ZTFkODhkNzM0KSI+PHBhdGggZmlsbD0iI2ZmZmZmZiIgZD0iTSAxNi4zMDA3ODEgMjEuOTg0Mzc1IEwgMTE1Ljk0NTMxMiAyMS45ODQzNzUgTCAxMTUuOTQ1MzEyIDk5LjkxMDE1NiBMIDE2LjMwMDc4MSA5OS45MTAxNTYgWiBNIDE2LjMwMDc4MSAyMS45ODQzNzUgIiBmaWxsLW9wYWNpdHk9IjEiIGZpbGwtcnVsZT0ibm9uemVybyIvPjwvZz48L2c+PGcgdHJhbnNmb3JtPSJtYXRyaXgoMSwgMCwgMCwgMSwgMTIzLCAzMSkiPjxnIGNsaXAtcGF0aD0idXJsKCMzYmIwODJlNzFmKSI+PGcgZmlsbD0iI2ZmZmZmZiIgZmlsbC1vcGFjaXR5PSIxIj48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxLjI0MjQzNSwgNjYuNzY5NzgzKSI+PGc+PHBhdGggZD0iTSAzMS42MjUgLTM2Ljg3NSBMIDIxLjM0Mzc1IC0zNi44NzUgTCAyMS4zNDM3NSAtNDAuODI4MTI1IEMgMjEuMzQzNzUgLTQxLjIzNDM3NSAyMS4xOTUzMTIgLTQxLjU5Mzc1IDIwLjkwNjI1IC00MS45MDYyNSBDIDIwLjYyNSAtNDIuMjE4NzUgMjAuMjgxMjUgLTQyLjM3NSAxOS44NzUgLTQyLjM3NSBMIDE1LjYwOTM3NSAtNDIuMzc1IEMgMTUuMjAzMTI1IC00Mi4zNzUgMTQuODUxNTYyIC00Mi4yMTg3NSAxNC41NjI1IC00MS45MDYyNSBDIDE0LjI4MTI1IC00MS41OTM3NSAxNC4xNDA2MjUgLTQxLjIzNDM3NSAxNC4xNDA2MjUgLTQwLjgyODEyNSBMIDE0LjE0MDYyNSAtMzEuOTM3NSBDIDE0LjE0MDYyNSAtMzEuNTE5NTMxIDE0LjI4MTI1IC0zMS4xNTYyNSAxNC41NjI1IC0zMC44NDM3NSBDIDE0Ljg1MTU2MiAtMzAuNTM5MDYyIDE1LjIwMzEyNSAtMzAuMzkwNjI1IDE1LjYwOTM3NSAtMzAuMzkwNjI1IEwgMjIuNTc4MTI1IC0zMC4zOTA2MjUgQyAyOC45NjA5MzggLTMwLjI4NTE1NiAzMi4xNTYyNSAtMjYuODc4OTA2IDMyLjE1NjI1IC0yMC4xNzE4NzUgTCAzMi4xNTYyNSAtOS40Mzc1IEMgMzIuMTU2MjUgLTIuNjMyODEyIDI4Ljk2MDkzOCAwLjc2NTYyNSAyMi41NzgxMjUgMC43NjU2MjUgTCAxMy40NTMxMjUgMC43NjU2MjUgQyA3LjA1NDY4OCAwLjc2NTYyNSAzLjg1OTM3NSAtMi42MzI4MTIgMy44NTkzNzUgLTkuNDM3NSBMIDMuODU5Mzc1IC0xNC42MDkzNzUgTCAxNC4xNDA2MjUgLTE0LjYwOTM3NSBMIDE0LjE0MDYyNSAtOS4wNDY4NzUgQyAxNC4xNDA2MjUgLTguNjI4OTA2IDE0LjI4MTI1IC04LjI2NTYyNSAxNC41NjI1IC03Ljk1MzEyNSBDIDE0Ljg1MTU2MiAtNy42NDg0MzggMTUuMjAzMTI1IC03LjUgMTUuNjA5Mzc1IC03LjUgTCAyMC40MDYyNSAtNy41IEMgMjAuODIwMzEyIC03LjUgMjEuMTcxODc1IC03LjY0ODQzOCAyMS40NTMxMjUgLTcuOTUzMTI1IEMgMjEuNzM0Mzc1IC04LjI2NTYyNSAyMS44NzUgLTguNjI4OTA2IDIxLjg3NSAtOS4wNDY4NzUgTCAyMS44NzUgLTE4Ljg1OTM3NSBDIDIxLjg3NSAtMTkuMjczNDM4IDIxLjczNDM3NSAtMTkuNjMyODEyIDIxLjQ1MzEyNSAtMTkuOTM3NSBDIDIxLjE3MTg3NSAtMjAuMjUgMjAuODIwMzEyIC0yMC40MDYyNSAyMC40MDYyNSAtMjAuNDA2MjUgTCAxMy40NTMxMjUgLTIwLjQwNjI1IEMgNy4wNTQ2ODggLTIwLjQwNjI1IDMuODU5Mzc1IC0yMy44MDQ2ODggMy44NTkzNzUgLTMwLjYwOTM3NSBMIDMuODU5Mzc1IC00MC41OTM3NSBDIDMuODU5Mzc1IC00Ny4zOTQ1MzEgNy4wNTQ2ODggLTUwLjc5Njg3NSAxMy40NTMxMjUgLTUwLjc5Njg3NSBMIDIyLjAzMTI1IC01MC43OTY4NzUgQyAyOC40MjU3ODEgLTUwLjc5Njg3NSAzMS42MjUgLTQ3LjM5NDUzMSAzMS42MjUgLTQwLjU5Mzc1IFogTSAzMS42MjUgLTM2Ljg3NSAiLz48L2c+PC9nPjwvZz48ZyBmaWxsPSIjZmZmZmZmIiBmaWxsLW9wYWNpdHk9IjEiPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDQwLjY2NzcxMywgNjYuNzY5NzgzKSI+PGc+PHBhdGggZD0iTSAyMi41IC04LjE4NzUgTCAyMi41IC0xNS45MjE4NzUgTCAzMi43ODEyNSAtMTUuOTIxODc1IEwgMzIuNzgxMjUgLTkuNDM3NSBDIDMyLjc4MTI1IC0yLjYzMjgxMiAyOS41ODIwMzEgMC43NjU2MjUgMjMuMTg3NSAwLjc2NTYyNSBMIDEzLjQ1MzEyNSAwLjc2NTYyNSBDIDcuMDU0Njg4IDAuNzY1NjI1IDMuODU5Mzc1IC0yLjYzMjgxMiAzLjg1OTM3NSAtOS40Mzc1IEwgMy44NTkzNzUgLTQwLjU5Mzc1IEMgMy44NTkzNzUgLTQ3LjM5NDUzMSA3LjA1NDY4OCAtNTAuNzk2ODc1IDEzLjQ1MzEyNSAtNTAuNzk2ODc1IEwgMjMuMTg3NSAtNTAuNzk2ODc1IEMgMjkuNTgyMDMxIC01MC43OTY4NzUgMzIuNzgxMjUgLTQ3LjM5NDUzMSAzMi43ODEyNSAtNDAuNTkzNzUgTCAzMi43ODEyNSAtMzUuODc1IEwgMjIuNSAtMzUuODc1IEwgMjIuNSAtNDEuOTA2MjUgQyAyMi41IC00Mi4zMTI1IDIyLjM1MTU2MiAtNDIuNjcxODc1IDIyLjA2MjUgLTQyLjk4NDM3NSBDIDIxLjc4MTI1IC00My4yOTY4NzUgMjEuNDM3NSAtNDMuNDUzMTI1IDIxLjAzMTI1IC00My40NTMxMjUgTCAxNi4xNTYyNSAtNDMuNDUzMTI1IEMgMTUuNzUgLTQzLjQ1MzEyNSAxNS4zOTg0MzggLTQzLjI5Njg3NSAxNS4xMDkzNzUgLTQyLjk4NDM3NSBDIDE0LjgyODEyNSAtNDIuNjcxODc1IDE0LjY4NzUgLTQyLjMxMjUgMTQuNjg3NSAtNDEuOTA2MjUgTCAxNC42ODc1IC04LjE4NzUgQyAxNC42ODc1IC03Ljc4MTI1IDE0LjgyODEyNSAtNy40MjE4NzUgMTUuMTA5Mzc1IC03LjEwOTM3NSBDIDE1LjM5ODQzOCAtNi44MDQ2ODggMTUuNzUgLTYuNjU2MjUgMTYuMTU2MjUgLTYuNjU2MjUgTCAyMS4wMzEyNSAtNi42NTYyNSBDIDIxLjQzNzUgLTYuNjU2MjUgMjEuNzgxMjUgLTYuODA0Njg4IDIyLjA2MjUgLTcuMTA5Mzc1IEMgMjIuMzUxNTYyIC03LjQyMTg3NSAyMi41IC03Ljc4MTI1IDIyLjUgLTguMTg3NSBaIE0gMjIuNSAtOC4xODc1ICIvPjwvZz48L2c+PC9nPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMSI+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoODAuMDkyOTksIDY2Ljc2OTc4MykiPjxnPjxwYXRoIGQ9Ik0gMTQuNjg3NSAtNTAuMDE1NjI1IEwgMTQuNjg3NSAwIEwgMy44NTkzNzUgMCBMIDMuODU5Mzc1IC01MC4wMTU2MjUgWiBNIDE0LjY4NzUgLTUwLjAxNTYyNSAiLz48L2c+PC9nPjwvZz48ZyBmaWxsPSIjZmZmZmZmIiBmaWxsLW9wYWNpdHk9IjEiPjxnIHRyYW5zZm9ybT0idHJhbnNsYXRlKDEwMi45NzUzMDMsIDY2Ljc2OTc4MykiPjxnPjxwYXRoIGQ9Ik0gMTQuNjg3NSAtOC45Njg3NSBMIDI2LjY3MTg3NSAtOC45Njg3NSBMIDI2LjY3MTg3NSAwIEwgMy44NTkzNzUgMCBMIDMuODU5Mzc1IC01MC4wMTU2MjUgTCAyNi42NzE4NzUgLTUwLjAxNTYyNSBMIDI2LjY3MTg3NSAtNDEuMjAzMTI1IEwgMTQuNjg3NSAtNDEuMjAzMTI1IEwgMTQuNjg3NSAtMjkuNDUzMTI1IEwgMjUuOTA2MjUgLTI5LjQ1MzEyNSBMIDI1LjkwNjI1IC0yMC45NTMxMjUgTCAxNC42ODc1IC0yMC45NTMxMjUgWiBNIDE0LjY4NzUgLTguOTY4NzUgIi8+PC9nPjwvZz48L2c+PGcgZmlsbD0iI2ZmZmZmZiIgZmlsbC1vcGFjaXR5PSIxIj48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxMzYuMDYxNzAxLCA2Ni43Njk3ODMpIj48Zz48cGF0aCBkPSJNIDMyLjU0Njg3NSAwIEwgMjEuNzE4NzUgMCBMIDIxLjcxODc1IC00MS41MTU2MjUgQyAyMS43MTg3NSAtNDEuOTI5Njg4IDIxLjU3ODEyNSAtNDIuMjg5MDYyIDIxLjI5Njg3NSAtNDIuNTkzNzUgQyAyMS4wMTU2MjUgLTQyLjkwNjI1IDIwLjY2NDA2MiAtNDMuMDYyNSAyMC4yNSAtNDMuMDYyNSBMIDE2LjA3ODEyNSAtNDMuMDYyNSBDIDE1LjY3MTg3NSAtNDMuMDYyNSAxNS4zMjAzMTIgLTQyLjkwNjI1IDE1LjAzMTI1IC00Mi41OTM3NSBDIDE0Ljc1IC00Mi4yODkwNjIgMTQuNjA5Mzc1IC00MS45Mjk2ODggMTQuNjA5Mzc1IC00MS41MTU2MjUgTCAxNC42MDkzNzUgMCBMIDMuNzgxMjUgMCBMIDMuNzgxMjUgLTQwLjU5Mzc1IEMgMy43ODEyNSAtNDcuMzk0NTMxIDYuOTc2NTYyIC01MC43OTY4NzUgMTMuMzc1IC01MC43OTY4NzUgTCAyMi45Njg3NSAtNTAuNzk2ODc1IEMgMjkuMzUxNTYyIC01MC43OTY4NzUgMzIuNTQ2ODc1IC00Ny4zOTQ1MzEgMzIuNTQ2ODc1IC00MC41OTM3NSBaIE0gMzIuNTQ2ODc1IDAgIi8+PC9nPjwvZz48L2c+PGcgZmlsbD0iI2ZmZmZmZiIgZmlsbC1vcGFjaXR5PSIxIj48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgxNzYuMDI4MTA2LCA2Ni43Njk3ODMpIj48Zz48cGF0aCBkPSJNIDIyLjUgLTguMTg3NSBMIDIyLjUgLTE1LjkyMTg3NSBMIDMyLjc4MTI1IC0xNS45MjE4NzUgTCAzMi43ODEyNSAtOS40Mzc1IEMgMzIuNzgxMjUgLTIuNjMyODEyIDI5LjU4MjAzMSAwLjc2NTYyNSAyMy4xODc1IDAuNzY1NjI1IEwgMTMuNDUzMTI1IDAuNzY1NjI1IEMgNy4wNTQ2ODggMC43NjU2MjUgMy44NTkzNzUgLTIuNjMyODEyIDMuODU5Mzc1IC05LjQzNzUgTCAzLjg1OTM3NSAtNDAuNTkzNzUgQyAzLjg1OTM3NSAtNDcuMzk0NTMxIDcuMDU0Njg4IC01MC43OTY4NzUgMTMuNDUzMTI1IC01MC43OTY4NzUgTCAyMy4xODc1IC01MC43OTY4NzUgQyAyOS41ODIwMzEgLTUwLjc5Njg3NSAzMi43ODEyNSAtNDcuMzk0NTMxIDMyLjc4MTI1IC00MC41OTM3NSBMIDMyLjc4MTI1IC0zNS44NzUgTCAyMi41IC0zNS44NzUgTCAyMi41IC00MS45MDYyNSBDIDIyLjUgLTQyLjMxMjUgMjIuMzUxNTYyIC00Mi42NzE4NzUgMjIuMDYyNSAtNDIuOTg0Mzc1IEMgMjEuNzgxMjUgLTQzLjI5Njg3NSAyMS40Mzc1IC00My40NTMxMjUgMjEuMDMxMjUgLTQzLjQ1MzEyNSBMIDE2LjE1NjI1IC00My40NTMxMjUgQyAxNS43NSAtNDMuNDUzMTI1IDE1LjM5ODQzOCAtNDMuMjk2ODc1IDE1LjEwOTM3NSAtNDIuOTg0Mzc1IEMgMTQuODI4MTI1IC00Mi42NzE4NzUgMTQuNjg3NSAtNDIuMzEyNSAxNC42ODc1IC00MS45MDYyNSBMIDE0LjY4NzUgLTguMTg3NSBDIDE0LjY4NzUgLTcuNzgxMjUgMTQuODI4MTI1IC03LjQyMTg3NSAxNS4xMDkzNzUgLTcuMTA5Mzc1IEMgMTUuMzk4NDM4IC02LjgwNDY4OCAxNS43NSAtNi42NTYyNSAxNi4xNTYyNSAtNi42NTYyNSBMIDIxLjAzMTI1IC02LjY1NjI1IEMgMjEuNDM3NSAtNi42NTYyNSAyMS43ODEyNSAtNi44MDQ2ODggMjIuMDYyNSAtNy4xMDkzNzUgQyAyMi4zNTE1NjIgLTcuNDIxODc1IDIyLjUgLTcuNzgxMjUgMjIuNSAtOC4xODc1IFogTSAyMi41IC04LjE4NzUgIi8+PC9nPjwvZz48L2c+PGcgZmlsbD0iI2ZmZmZmZiIgZmlsbC1vcGFjaXR5PSIxIj48ZyB0cmFuc2Zvcm09InRyYW5zbGF0ZSgyMTUuNDUzMzgzLCA2Ni43Njk3ODMpIj48Zz48cGF0aCBkPSJNIDE0LjY4NzUgLTguOTY4NzUgTCAyNi42NzE4NzUgLTguOTY4NzUgTCAyNi42NzE4NzUgMCBMIDMuODU5Mzc1IDAgTCAzLjg1OTM3NSAtNTAuMDE1NjI1IEwgMjYuNjcxODc1IC01MC4wMTU2MjUgTCAyNi42NzE4NzUgLTQxLjIwMzEyNSBMIDE0LjY4NzUgLTQxLjIwMzEyNSBMIDE0LjY4NzUgLTI5LjQ1MzEyNSBMIDI1LjkwNjI1IC0yOS40NTMxMjUgTCAyNS45MDYyNSAtMjAuOTUzMTI1IEwgMTQuNjg3NSAtMjAuOTUzMTI1IFogTSAxNC42ODc1IC04Ljk2ODc1ICIvPjwvZz48L2c+PC9nPjxnIGZpbGw9IiNmZmZmZmYiIGZpbGwtb3BhY2l0eT0iMSI+PGcgdHJhbnNmb3JtPSJ0cmFuc2xhdGUoMjQ4LjUzOTc4MSwgNjYuNzY5NzgzKSI+PGc+PHBhdGggZD0iTSAzMS42MjUgLTM2Ljg3NSBMIDIxLjM0Mzc1IC0zNi44NzUgTCAyMS4zNDM3NSAtNDAuODI4MTI1IEMgMjEuMzQzNzUgLTQxLjIzNDM3NSAyMS4xOTUzMTIgLTQxLjU5Mzc1IDIwLjkwNjI1IC00MS45MDYyNSBDIDIwLjYyNSAtNDIuMjE4NzUgMjAuMjgxMjUgLTQyLjM3NSAxOS44NzUgLTQyLjM3NSBMIDE1LjYwOTM3NSAtNDIuMzc1IEMgMTUuMjAzMTI1IC00Mi4zNzUgMTQuODUxNTYyIC00Mi4yMTg3NSAxNC41NjI1IC00MS45MDYyNSBDIDE0LjI4MTI1IC00MS41OTM3NSAxNC4xNDA2MjUgLTQxLjIzNDM3NSAxNC4xNDA2MjUgLTQwLjgyODEyNSBMIDE0LjE0MDYyNSAtMzEuOTM3NSBDIDE0LjE0MDYyNSAtMzEuNTE5NTMxIDE0LjI4MTI1IC0zMS4xNTYyNSAxNC41NjI1IC0zMC44NDM3NSBDIDE0Ljg1MTU2MiAtMzAuNTM5MDYyIDE1LjIwMzEyNSAtMzAuMzkwNjI1IDE1LjYwOTM3NSAtMzAuMzkwNjI1IEwgMjIuNTc4MTI1IC0zMC4zOTA2MjUgQyAyOC45NjA5MzggLTMwLjI4NTE1NiAzMi4xNTYyNSAtMjYuODc4OTA2IDMyLjE1NjI1IC0yMC4xNzE4NzUgTCAzMi4xNTYyNSAtOS40Mzc1IEMgMzIuMTU2MjUgLTIuNjMyODEyIDI4Ljk2MDkzOCAwLjc2NTYyNSAyMi41NzgxMjUgMC43NjU2MjUgTCAxMy40NTMxMjUgMC43NjU2MjUgQyA3LjA1NDY4OCAwLjc2NTYyNSAzLjg1OTM3NSAtMi42MzI4MTIgMy44NTkzNzUgLTkuNDM3NSBMIDMuODU5Mzc1IC0xNC42MDkzNzUgTCAxNC4xNDA2MjUgLTE0LjYwOTM3NSBMIDE0LjE0MDYyNSAtOS4wNDY4NzUgQyAxNC4xNDA2MjUgLTguNjI4OTA2IDE0LjI4MTI1IC04LjI2NTYyNSAxNC41NjI1IC03Ljk1MzEyNSBDIDE0Ljg1MTU2MiAtNy42NDg0MzggMTUuMjAzMTI1IC03LjUgMTUuNjA5Mzc1IC03LjUgTCAyMC40MDYyNSAtNy41IEMgMjAuODIwMzEyIC03LjUgMjEuMTcxODc1IC03LjY0ODQzOCAyMS40NTMxMjUgLTcuOTUzMTI1IEMgMjEuNzM0Mzc1IC04LjI2NTYyNSAyMS44NzUgLTguNjI4OTA2IDIxLjg3NSAtOS4wNDY4NzUgTCAyMS44NzUgLTE4Ljg1OTM3NSBDIDIxLjg3NSAtMTkuMjczNDM4IDIxLjczNDM3NSAtMTkuNjMyODEyIDIxLjQ1MzEyNSAtMTkuOTM3NSBDIDIxLjE3MTg3NSAtMjAuMjUgMjAuODIwMzEyIC0yMC40MDYyNSAyMC40MDYyNSAtMjAuNDA2MjUgTCAxMy40NTMxMjUgLTIwLjQwNjI1IEMgNy4wNTQ2ODggLTIwLjQwNjI1IDMuODU5Mzc1IC0yMy44MDQ2ODggMy44NTkzNzUgLTMwLjYwOTM3NSBMIDMuODU5Mzc1IC00MC41OTM3NSBDIDMuODU5Mzc1IC00Ny4zOTQ1MzEgNy4wNTQ2ODggLTUwLjc5Njg3NSAxMy40NTMxMjUgLTUwLjc5Njg3NSBMIDIyLjAzMTI1IC01MC43OTY4NzUgQyAyOC40MjU3ODEgLTUwLjc5Njg3NSAzMS42MjUgLTQ3LjM5NDUzMSAzMS42MjUgLTQwLjU5Mzc1IFogTSAzMS42MjUgLTM2Ljg3NSAiLz48L2c+PC9nPjwvZz48L2c+PC9nPjwvc3ZnPg==" alt="eSCIENCES" width="210" height="68"></a>
+    <div class="credits-txt">
+      <p><strong>Application imaginée par Tommy Berben</strong> pour <a href="https://www.esciences.be" target="_blank" rel="noopener">eSCIENCES.be</a></p>
+      <p>Licence <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr" target="_blank" rel="noopener license">Creative Commons BY-NC-SA 4.0</a> : partage et adaptation autorisés, avec attribution, sans usage commercial et sous la même licence.</p>
+    </div>
+  </div>
+</footer>
+
+<dialog id="dlg-confort" aria-labelledby="h-confort">
+  <div class="dlg-h"><h2 id="h-confort">Confort de lecture</h2><button type="button" class="btn" data-close>Fermer</button></div>
+  <div class="dlg-b">
+    <p class="note">Règle l’affichage comme tu lis le mieux. Les changements s’appliquent tout de suite, à tous les exercices, et sont gardés sur cet appareil.</p>
+    <div class="setting"><fieldset><legend>Affichage simplifié</legend>
+      <label class="switch"><input type="checkbox" id="set-simple"><span><span class="st">Activer l’affichage simplifié</span><span class="sd">Une seule colonne, sans décor, une seule police, moins d’éléments à l’écran.</span></span></label>
+    </fieldset></div>
+    <div class="setting"><fieldset><legend>Taille du texte</legend><div class="seg" id="set-size">
+      <label><input type="radio" name="size" value="1"> Normale</label>
+      <label><input type="radio" name="size" value="1.15"> Grande</label>
+      <label><input type="radio" name="size" value="1.3"> Très grande</label>
+      <label><input type="radio" name="size" value="1.5"> Maximale</label>
+    </div></fieldset></div>
+    <div class="setting"><fieldset><legend>Espacement des lignes</legend><div class="seg" id="set-lh">
+      <label><input type="radio" name="lh" value="1.55"> Normal</label>
+      <label><input type="radio" name="lh" value="1.8"> Aéré</label>
+      <label><input type="radio" name="lh" value="2.1"> Très aéré</label>
+    </div></fieldset></div>
+    <div class="setting"><fieldset><legend>Contraste</legend><div class="seg" id="set-contrast">
+      <label><input type="radio" name="contrast" value="std"> Standard</label>
+      <label><input type="radio" name="contrast" value="high"> Renforcé (noir sur blanc)</label>
+      <label><input type="radio" name="contrast" value="dark"> Sombre</label>
+    </div></fieldset></div>
+    <div class="setting"><fieldset><legend>Animations</legend>
+      <label class="switch"><input type="checkbox" id="set-reduce"><span><span class="st">Réduire les animations</span><span class="sd">Supprime les petites transitions (barres de progression, survols).</span></span></label>
+    </fieldset></div>
+    <div class="actions"><button type="button" class="btn" id="set-reset">Revenir aux réglages de départ</button></div>
+    <p class="note">Ces réglages sont des aides possibles : chacun peut tester et garder ce qui lui convient.</p>
+  </div>
+</dialog>
+
+<dialog id="dlg-rappel" aria-labelledby="h-rappel" class="rappel">
+  <div class="dlg-h"><h2 id="h-rappel">Rappel de cours</h2><button type="button" class="btn" data-close>Fermer</button></div>
+  <div class="dlg-b">
+    <nav aria-label="Parties du rappel">
+      <a class="btn btn-ghost" href="#r-form">1. Formation</a>
+      <a class="btn btn-ghost" href="#r-verbes">2. Verbes fréquents</a>
+      <a class="btn btn-ghost" href="#r-pieges">3. Pièges</a>
+      <a class="btn btn-ghost" href="#r-emploi">4. Emploi</a>
+    </nav>
+    <p class="tip"><strong>En bref :</strong> le passé simple sert à raconter, à l’écrit, les actions qui font avancer une histoire. Il ouvrit la porte, entra, et tout bascula.</p>
+    <section id="r-form" tabindex="-1">
+      <h3>1. Formation : comment on conjugue</h3>
+      <p>Passé simple = <b>radical</b> du verbe + <b>terminaison</b>. Il existe quatre familles de terminaisons.</p>
+      <div class="tw"><table>
+        <caption class="sr">Les quatre familles de terminaisons du passé simple</caption>
+        <thead><tr><th scope="col">Sujet</th><th scope="col">En -a<br><small>verbes en -er + aller</small></th><th scope="col">En -i<br><small>finir, prendre, faire, voir, dire…</small></th><th scope="col">En -u<br><small>être, avoir, pouvoir, vouloir, savoir…</small></th><th scope="col">En -in<br><small>venir, tenir et leurs composés</small></th></tr></thead>
+        <tbody>
+          <tr><th scope="row">je</th><td>chant<b class="k">ai</b></td><td>fin<b class="k">is</b></td><td>voul<b class="k">us</b></td><td>v<b class="k">ins</b></td></tr>
+          <tr><th scope="row">tu</th><td>chant<b class="k">as</b></td><td>fin<b class="k">is</b></td><td>voul<b class="k">us</b></td><td>v<b class="k">ins</b></td></tr>
+          <tr><th scope="row">il, elle, on</th><td>chant<b class="k">a</b></td><td>fin<b class="k">it</b></td><td>voul<b class="k">ut</b></td><td>v<b class="k">int</b></td></tr>
+          <tr><th scope="row">nous</th><td>chant<b class="k">âmes</b></td><td>fin<b class="k">îmes</b></td><td>voul<b class="k">ûmes</b></td><td>v<b class="k">înmes</b></td></tr>
+          <tr><th scope="row">vous</th><td>chant<b class="k">âtes</b></td><td>fin<b class="k">îtes</b></td><td>voul<b class="k">ûtes</b></td><td>v<b class="k">întes</b></td></tr>
+          <tr><th scope="row">ils, elles</th><td>chant<b class="k">èrent</b></td><td>fin<b class="k">irent</b></td><td>voul<b class="k">urent</b></td><td>v<b class="k">inrent</b></td></tr>
+        </tbody></table></div>
+    </section>
+    <section id="r-verbes" tabindex="-1">
+      <h3>2. Verbes fréquents à connaître</h3>
+      <div class="tw"><table>
+        <caption class="sr">Passé simple de verbes fréquents</caption>
+        <thead><tr><th scope="col">Infinitif</th><th scope="col">il / elle</th><th scope="col">nous</th><th scope="col">ils / elles</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">être</th><td>fut</td><td>fûmes</td><td>furent</td></tr>
+          <tr><th scope="row">avoir</th><td>eut</td><td>eûmes</td><td>eurent</td></tr>
+          <tr><th scope="row">faire</th><td>fit</td><td>fîmes</td><td>firent</td></tr>
+          <tr><th scope="row">aller</th><td>alla</td><td>allâmes</td><td>allèrent</td></tr>
+          <tr><th scope="row">venir</th><td>vint</td><td>vînmes</td><td>vinrent</td></tr>
+          <tr><th scope="row">tenir</th><td>tint</td><td>tînmes</td><td>tinrent</td></tr>
+          <tr><th scope="row">prendre</th><td>prit</td><td>prîmes</td><td>prirent</td></tr>
+          <tr><th scope="row">mettre</th><td>mit</td><td>mîmes</td><td>mirent</td></tr>
+          <tr><th scope="row">voir</th><td>vit</td><td>vîmes</td><td>virent</td></tr>
+          <tr><th scope="row">dire</th><td>dit</td><td>dîmes</td><td>dirent</td></tr>
+          <tr><th scope="row">écrire</th><td>écrivit</td><td>écrivîmes</td><td>écrivirent</td></tr>
+          <tr><th scope="row">pouvoir</th><td>put</td><td>pûmes</td><td>purent</td></tr>
+          <tr><th scope="row">vouloir</th><td>voulut</td><td>voulûmes</td><td>voulurent</td></tr>
+          <tr><th scope="row">savoir</th><td>sut</td><td>sûmes</td><td>surent</td></tr>
+          <tr><th scope="row">devoir</th><td>dut</td><td>dûmes</td><td>durent</td></tr>
+          <tr><th scope="row">courir</th><td>courut</td><td>courûmes</td><td>coururent</td></tr>
+          <tr><th scope="row">lire</th><td>lut</td><td>lûmes</td><td>lurent</td></tr>
+          <tr><th scope="row">recevoir</th><td>reçut</td><td>reçûmes</td><td>reçurent</td></tr>
+          <tr><th scope="row">vivre</th><td>vécut</td><td>vécûmes</td><td>vécurent</td></tr>
+          <tr><th scope="row">naître</th><td>naquit</td><td>naquîmes</td><td>naquirent</td></tr>
+        </tbody></table></div>
+    </section>
+    <section id="r-pieges" tabindex="-1">
+      <h3>3. Pièges fréquents</h3>
+      <ul class="pitfalls">
+        <li><b>Nous et vous</b> prennent toujours un accent circonflexe : nous chant<b class="k">â</b>mes, vous f<b class="k">î</b>tes, nous f<b class="k">û</b>mes.</li>
+        <li><b>Au singulier, pas d’accent</b> : il fut, il eut, il fit. « Fût » et « eût » appartiennent à un autre temps (le subjonctif imparfait).</li>
+        <li><b>Verbes en -er</b> : ils chant<b class="k">èrent</b>, avec un accent grave. Jamais « chantirent ».</li>
+        <li><b>-cer et -ger</b> : il commen<b class="k">ç</b>a, nous mang<b class="k">e</b>âmes (pour garder le son), mais ils commencèrent, ils mangèrent.</li>
+        <li><b>Je chantai ≠ je chantais</b> : une seule lettre sépare le passé simple (-ai) de l’imparfait (-ais).</li>
+        <li><b>Vous dîtes ≠ vous dites, vous fîtes ≠ vous faites</b> : sans accent, c’est le présent.</li>
+        <li><b>Aller</b> est irrégulier au présent, mais au passé simple il se conjugue comme un verbe en -er : j’allai, ils allèrent.</li>
+        <li><b>Formes identiques au présent</b> : je finis, il dit, il sourit… C’est le récit au passé qui indique qu’il s’agit du passé simple.</li>
+      </ul>
+    </section>
+    <section id="r-emploi" tabindex="-1">
+      <h3>4. Emploi : quand utiliser le passé simple</h3>
+      <p>Le passé simple est le temps du <b>récit écrit</b> : romans, contes, légendes, récits historiques, biographies. À l’oral, on utilise plutôt le passé composé. On le rencontre surtout à la 3e personne, mais toutes les personnes existent.</p>
+      <p><b>Passé simple = premier plan.</b> Actions ponctuelles, qui se suivent et font avancer l’histoire.</p>
+      <p class="ex">Il <b>ouvrit</b> la porte, <b>entra</b> et <b>alluma</b> la lumière.</p>
+      <p><b>Imparfait = arrière-plan.</b> Décor, description, habitudes, action en cours.</p>
+      <p class="ex">Il <b>faisait</b> nuit. Le vent <b>soufflait</b>. Chaque soir, le gardien <b>fermait</b> les grilles.</p>
+      <p><b>Les deux ensemble</b> : l’imparfait pose la situation, le passé simple la fait basculer.</p>
+      <p class="ex">Je <b>lisais</b> (action en cours) quand le téléphone <b>sonna</b> (événement soudain).</p>
+      <p><b>Indices utiles</b> (ce ne sont pas des règles automatiques) :</p>
+      <ul>
+        <li>souvent avec le passé simple : soudain, tout à coup, ce jour-là, un jour, puis, alors, enfin ;</li>
+        <li>souvent avec l’imparfait : chaque jour, d’habitude, souvent, toujours, autrefois, depuis, pendant que.</li>
+      </ul>
+      <p>La bonne question à te poser : <b>cette action fait-elle avancer l’histoire, ou décrit-elle la situation ?</b></p>
+    </section>
+  </div>
+</dialog>
+<dialog id="dlg-confirm" aria-labelledby="h-confirm" aria-describedby="confirm-text">
+  <div class="dlg-b"><h2 id="h-confirm">Confirmer</h2><p id="confirm-text"></p>
+  <div class="actions"><button type="button" class="btn" id="confirm-cancel">Annuler</button><button type="button" class="btn btn-primary" id="confirm-ok">Confirmer</button></div></div>
+</dialog>
+<script>
+/* ===== Banque de questions ===== */
+var SUJETS = ["je ou tu", "il / elle", "nous", "vous", "ils / elles"];
+function CH(o, a, l, e) { return { k: "ch", o: o, a: a, l: l, e: e }; }
+function IN(a, l, e, w) { return { k: "in", a: a, l: l, e: e, w: w }; }
+function SEL(o, a, e) { return { k: "sel", o: o, a: a, e: e }; }
+function SUJ(a) { return { k: "ch", o: SUJETS, a: a, l: "Sujet", fixed: true }; }
+
+var BANK = [
+/* ---------- Chapitre 1 : Reconnaître ---------- */
+{ id: "1-01", s: 1, f: [CH(["il chantait", "il chanta", "il chantera", "il chante"], "il chanta")], ex: "« Il chanta » : verbe en -er, terminaison -a au singulier. « Chantait » est à l’imparfait, « chantera » au futur, « chante » au présent." },
+{ id: "1-02", s: 1, f: [CH(["nous finissions", "nous finirons", "nous finîmes", "nous finissons"], "nous finîmes")], ex: "« Nous finîmes » : terminaison -îmes, avec un accent circonflexe comme toujours avec nous." },
+{ id: "1-03", s: 1, f: [CH(["ils prennent", "ils prirent", "ils prenaient", "ils prendront"], "ils prirent")], ex: "Prendre change de radical au passé simple : ils prirent (pr- + -irent)." },
+{ id: "1-04", s: 1, f: [CH(["vous faisiez", "vous ferez", "vous faites", "vous fîtes"], "vous fîtes")], ex: "« Vous faites » est au présent. Au passé simple, on écrit « vous fîtes », avec un î." },
+{ id: "1-05", s: 1, f: [CH(["elle venait", "elle vint", "elle vient", "elle viendra"], "elle vint")], ex: "Venir prend les terminaisons en -in : je vins, elle vint, ils vinrent." },
+{ id: "1-06", s: 1, f: [CH(["j’eus", "j’avais", "j’aurai", "j’ai"], "j’eus")], ex: "Avoir au passé simple : j’eus, tu eus, il eut… (famille en -u)." },
+{ id: "1-07", s: 1, f: [CH(["tu allais", "tu allas", "tu iras", "tu vas"], "tu allas")], ex: "Aller est irrégulier au présent, mais au passé simple il suit les verbes en -er : j’allai, tu allas, il alla." },
+{ id: "1-08", s: 1, f: [CH(["ils voyaient", "ils voient", "ils virent", "ils verront"], "ils virent")], ex: "Voir au passé simple : je vis, il vit, ils virent." },
+{ id: "1-09", s: 1, q: "Combien de verbes au passé simple compte ce passage ?", p: "« Le vent soufflait fort. Soudain, la fenêtre s’ouvrit et un papier s’envola. »", f: [CH(["1", "2", "3", "Aucun"], "2")], ex: "« S’ouvrit » et « s’envola » sont au passé simple. « Soufflait » est à l’imparfait : il décrit le décor." },
+{ id: "1-10", s: 1, q: "Quel verbe de cette phrase est au passé simple ?", p: "« Elle regardait la mer quand un bateau apparut à l’horizon. »", f: [CH(["regardait", "apparut", "aucun des deux"], "apparut")], ex: "« Apparut » (apparaître) est au passé simple, famille en -u. « Regardait » est à l’imparfait." },
+{ id: "1-11", s: 1, f: [CH(["nous sûmes", "nous savions", "nous saurons", "nous savons"], "nous sûmes")], ex: "Savoir au passé simple : je sus, il sut, nous sûmes (avec û)." },
+{ id: "1-12", s: 1, f: [CH(["il pouvait", "il put", "il peut", "il pourra"], "il put")], ex: "Pouvoir au passé simple : il put. Attention à ne pas confondre avec « il peut » (présent)." },
+{ id: "1-13", s: 1, f: [CH(["elles voulurent", "elles voulaient", "elles veulent", "elles voudront"], "elles voulurent")], ex: "Vouloir suit la famille en -u : elles voulurent." },
+{ id: "1-14", s: 1, f: [CH(["vous dîtes", "vous disiez", "vous direz", "vous dites"], "vous dîtes")], ex: "Une seule lettre change tout : « vous dites » (présent), « vous dîtes » (passé simple, avec î)." },
+{ id: "1-15", s: 1, f: [CH(["je fus", "j’étais", "je suis", "je serai"], "je fus")], ex: "Être au passé simple : je fus, tu fus, il fut, nous fûmes, vous fûtes, ils furent." },
+{ id: "1-16", s: 1, q: "Une seule de ces formes n’est PAS au passé simple. Laquelle ?", f: [CH(["ils mangèrent", "nous commençâmes", "elle tenait", "tu partis"], "elle tenait")], ex: "« Elle tenait » est à l’imparfait (-ait). Au passé simple, on dirait « elle tint »." },
+{ id: "1-17", s: 1, q: "Quels verbes de ce passage sont au passé simple ?", p: "« Les élèves entrèrent dans le musée. Le guide les attendait près de l’entrée ; il les salua. »", f: [CH(["entrèrent et salua", "attendait et salua", "entrèrent et attendait", "les trois verbes"], "entrèrent et salua")], ex: "« Entrèrent » et « salua » sont des actions ponctuelles au passé simple. « Attendait » (imparfait) décrit la situation." },
+{ id: "1-18", s: 1, q: "Une seule de ces formes n’est PAS au passé simple. Laquelle ?", f: [CH(["nous allâmes", "vous vîntes", "ils firent", "ils faisaient"], "ils faisaient")], ex: "« Ils faisaient » est à l’imparfait. Au passé simple : ils firent." },
+{ id: "1-19", s: 1, f: [CH(["je mis", "je mets", "je mettais", "je mettrai"], "je mis")], ex: "Mettre au passé simple : je mis, il mit, ils mirent (famille en -i)." },
+{ id: "1-20", s: 1, q: "Quel verbe de ce passage est au passé simple ?", p: "« Chaque soir, le gardien fermait les grilles. Ce soir-là, il oublia la petite porte du fond. »", f: [CH(["fermait", "oublia", "aucun des deux"], "oublia")], ex: "« Oublia » : action unique (ce soir-là), au passé simple. « Fermait » exprime une habitude (chaque soir), à l’imparfait." },
+
+/* ---------- Chapitre 2 : Associer ---------- */
+{ id: "2-01", s: 2, p: "Forme : « vînmes »", f: [CH(["venir", "vendre", "voir", "vaincre"], "venir", "Infinitif"), SUJ("nous")], ex: "« Vînmes » vient de venir (famille en -in). La terminaison -înmes correspond à nous." },
+{ id: "2-02", s: 2, p: "Forme : « prirent »", f: [CH(["prendre", "prier", "priver", "plaire"], "prendre", "Infinitif"), SUJ("ils / elles")], ex: "« Prirent » vient de prendre. La terminaison -irent correspond à ils ou elles." },
+{ id: "2-03", s: 2, p: "Forme : « fûtes »", f: [CH(["être", "faire", "fuir", "falloir"], "être", "Infinitif"), SUJ("vous")], ex: "« Fûtes » vient d’être : vous fûtes. Ne confonds pas avec faire (vous fîtes)." },
+{ id: "2-04", s: 2, p: "Forme : « eut »", f: [CH(["avoir", "aller", "entendre", "être"], "avoir", "Infinitif"), SUJ("il / elle")], ex: "« Eut » vient d’avoir : il eut, sans accent au singulier." },
+{ id: "2-05", s: 2, p: "Forme : « firent »", f: [CH(["faire", "finir", "fuir", "être"], "faire", "Infinitif"), SUJ("ils / elles")], ex: "« Firent » vient de faire : ils firent. Finir donnerait « finirent »." },
+{ id: "2-06", s: 2, p: "Forme : « sûmes »", f: [CH(["savoir", "suivre", "sentir", "servir"], "savoir", "Infinitif"), SUJ("nous")], ex: "« Sûmes » vient de savoir : nous sûmes (famille en -u)." },
+{ id: "2-07", s: 2, p: "Forme : « pûtes »", f: [CH(["pouvoir", "punir", "plaire", "pendre"], "pouvoir", "Infinitif"), SUJ("vous")], ex: "« Pûtes » vient de pouvoir : vous pûtes. La terminaison -ûtes correspond à vous." },
+{ id: "2-08", s: 2, p: "Forme : « voulut »", f: [CH(["vouloir", "voler", "valoir", "voir"], "vouloir", "Infinitif"), SUJ("il / elle")], ex: "« Voulut » vient de vouloir : il voulut. Valoir donnerait « valut »." },
+{ id: "2-09", s: 2, p: "Forme : « dîtes »", f: [CH(["dire", "devoir", "dormir", "durer"], "dire", "Infinitif"), SUJ("vous")], ex: "« Vous dîtes » (passé simple de dire) prend un î. Sans accent, « vous dites » est au présent." },
+{ id: "2-10", s: 2, p: "Forme : « vîtes »", f: [CH(["voir", "vivre", "venir", "vêtir"], "voir", "Infinitif"), SUJ("vous")], ex: "« Vîtes » vient de voir. Vivre donnerait « vous vécûtes » et venir « vous vîntes »." },
+{ id: "2-11", s: 2, p: "Forme : « allâmes »", f: [CH(["aller", "allumer", "allonger", "aimer"], "aller", "Infinitif"), SUJ("nous")], ex: "« Allâmes » vient d’aller : nous allâmes, comme un verbe en -er." },
+{ id: "2-12", s: 2, p: "Forme : « tinrent »", f: [CH(["tenir", "teindre", "tendre", "taire"], "tenir", "Infinitif"), SUJ("ils / elles")], ex: "« Tinrent » vient de tenir, qui se conjugue comme venir : ils tinrent, ils vinrent." },
+{ id: "2-13", s: 2, p: "Forme : « dut »", f: [CH(["devoir", "dire", "durer", "donner"], "devoir", "Infinitif"), SUJ("il / elle")], ex: "« Dut » vient de devoir : il dut (famille en -u). Dire donnerait « il dit »." },
+{ id: "2-14", s: 2, p: "Forme : « naquit »", f: [CH(["naître", "nager", "nouer", "noyer"], "naître", "Infinitif"), SUJ("il / elle")], ex: "« Naquit » vient de naître, qui a un radical très particulier : il naquit, ils naquirent." },
+{ id: "2-15", s: 2, p: "Forme : « vécurent »", f: [CH(["vivre", "voir", "vaincre", "venir"], "vivre", "Infinitif"), SUJ("ils / elles")], ex: "« Vécurent » vient de vivre : ils vécurent (radical véc- + -urent)." },
+{ id: "2-16", s: 2, p: "Forme : « reçûmes »", f: [CH(["recevoir", "recoudre", "reculer", "rendre"], "recevoir", "Infinitif"), SUJ("nous")], ex: "« Reçûmes » vient de recevoir : nous reçûmes. Le ç garde le son [s] devant u." },
+{ id: "2-17", s: 2, p: "Forme : « écrivit »", f: [CH(["écrire", "écrouler", "effrayer", "élire"], "écrire", "Infinitif"), SUJ("il / elle")], ex: "« Écrivit » vient d’écrire : il écrivit (radical écriv- + -it)." },
+{ id: "2-18", s: 2, p: "Forme : « courûtes »", f: [CH(["courir", "coudre", "courber", "crier"], "courir", "Infinitif"), SUJ("vous")], ex: "« Courûtes » vient de courir : vous courûtes (famille en -u)." },
+
+/* ---------- Chapitre 3 : Terminaisons ---------- */
+{ id: "3-01", s: 3, p: "Hier soir, les supporters chant[[0]] l’hymne du club. (chanter)", f: [IN("èrent", "terminaison de chanter")], ex: "Verbe en -er, sujet pluriel : -èrent (ils chantèrent)." },
+{ id: "3-02", s: 3, p: "Nous arriv[[0]] juste avant la fermeture. (arriver)", f: [IN("âmes", "terminaison de arriver")], ex: "Verbe en -er avec nous : -âmes, avec un accent circonflexe." },
+{ id: "3-03", s: 3, p: "Je regard[[0]] la scène sans rien dire. (regarder)", f: [IN("ai", "terminaison de regarder")], ex: "Verbe en -er avec je : -ai (je regardai). Avec -ais, ce serait l’imparfait." },
+{ id: "3-04", s: 3, p: "Tu écout[[0]] le message jusqu’au bout. (écouter)", f: [IN("as", "terminaison de écouter")], ex: "Verbe en -er avec tu : -as (tu écoutas)." },
+{ id: "3-05", s: 3, p: "Quand le groupe monta sur scène, la foule hurl[[0]]. (hurler)", f: [IN("a", "terminaison de hurler")], ex: "Verbe en -er au singulier : -a, sans t ni s. La foule hurla." },
+{ id: "3-06", s: 3, p: "Vous termin[[0]] l’exposé sous les applaudissements. (terminer)", f: [IN("âtes", "terminaison de terminer")], ex: "Verbe en -er avec vous : -âtes, avec un accent circonflexe." },
+{ id: "3-07", s: 3, p: "Les deux amies fin[[0]] leur projet à temps. (finir)", f: [IN("irent", "terminaison de finir")], ex: "Verbe en -ir (2e groupe), sujet pluriel : -irent (elles finirent)." },
+{ id: "3-08", s: 3, p: "Nous réuss[[0]] l’expérience du premier coup. (réussir)", f: [IN("îmes", "terminaison de réussir")], ex: "Verbe en -ir avec nous : -îmes (nous réussîmes)." },
+{ id: "3-09", s: 3, p: "Elle chois[[0]] la route la plus courte. (choisir)", f: [IN("it", "terminaison de choisir")], ex: "Verbe en -ir au singulier : -it (elle choisit)." },
+{ id: "3-10", s: 3, p: "Nous mange[[0]] en silence. (manger)", f: [IN("âmes", "terminaison de manger")], ex: "Manger garde le e devant a pour conserver le son [ʒ] : nous mangeâmes." },
+{ id: "3-11", s: 3, p: "Le spectacle commenç[[0]] avec dix minutes de retard. (commencer)", f: [IN("a", "terminaison de commencer")], ex: "Commencer prend une cédille devant a : il commença." },
+{ id: "3-12", s: 3, p: "Ils pr[[0]] le dernier train. (prendre)", f: [IN("irent", "terminaison de prendre")], ex: "Prendre suit la famille en -i : ils prirent." },
+{ id: "3-13", s: 3, p: "Vous f[[0]] un excellent travail. (faire)", f: [IN("îtes", "terminaison de faire")], ex: "Faire avec vous : vous fîtes (î). « Vous faites » serait le présent." },
+{ id: "3-14", s: 3, p: "Les secours v[[0]] très vite. (venir)", f: [IN("inrent", "terminaison de venir")], ex: "Venir suit la famille en -in : ils vinrent." },
+{ id: "3-15", s: 3, p: "Nous f[[0]] surpris par l’orage. (être)", f: [IN("ûmes", "terminaison de être")], ex: "Être avec nous : nous fûmes (famille en -u, avec û)." },
+{ id: "3-16", s: 3, p: "Ce jour-là, elle voul[[0]] tout recommencer. (vouloir)", f: [IN("ut", "terminaison de vouloir")], ex: "Vouloir suit la famille en -u : elle voulut." },
+{ id: "3-17", s: 3, p: "Ils s[[0]] enfin la vérité. (savoir)", f: [IN("urent", "terminaison de savoir")], ex: "Savoir suit la famille en -u : ils surent." },
+{ id: "3-18", s: 3, p: "Vous v[[0]] la comète avant tout le monde. (voir)", f: [IN("îtes", "terminaison de voir")], ex: "Voir avec vous : vous vîtes (famille en -i, avec î)." },
+{ id: "3-19", s: 3, p: "Les explorateurs all[[0]] jusqu’au bout du glacier. (aller)", f: [IN("èrent", "terminaison de aller")], ex: "Aller se conjugue comme un verbe en -er au passé simple : ils allèrent." },
+{ id: "3-20", s: 3, p: "Je rempl[[0]] ma gourde à la fontaine. (remplir)", f: [IN("is", "terminaison de remplir")], ex: "Verbe en -ir avec je : -is (je remplis)." },
+
+/* ---------- Chapitre 4 : Conjuguer ---------- */
+{ id: "4-01", s: 4, p: "Le gardien [[0]] (ouvrir) la porte du château.", f: [IN("ouvrit", "ouvrir")], ex: "Ouvrir suit la famille en -i : il ouvrit." },
+{ id: "4-02", s: 4, p: "Soudain, nous [[0]] (entendre) un cri.", f: [IN("entendîmes", "entendre")], ex: "Entendre avec nous : nous entendîmes (-îmes)." },
+{ id: "4-03", s: 4, p: "Les joueurs [[0]] (avoir) un dernier sursaut d’énergie.", f: [IN("eurent", "avoir")], ex: "Avoir avec un sujet pluriel : ils eurent." },
+{ id: "4-04", s: 4, p: "Ce jour-là, il [[0]] (être) le premier arrivé.", f: [IN("fut", "être")], ex: "Être à la 3e personne du singulier : il fut, sans accent." },
+{ id: "4-05", s: 4, p: "Vous [[0]] (faire) demi-tour au dernier moment.", f: [IN("fîtes", "faire")], ex: "Faire avec vous : vous fîtes." },
+{ id: "4-06", s: 4, p: "Elles [[0]] (aller) voir la directrice.", f: [IN("allèrent", "aller")], ex: "Aller au passé simple : elles allèrent, comme un verbe en -er." },
+{ id: "4-07", s: 4, p: "Je [[0]] (prendre) mon courage à deux mains.", f: [IN("pris", "prendre")], ex: "Prendre avec je : je pris." },
+{ id: "4-08", s: 4, p: "Tu [[0]] (voir) une ombre passer derrière la fenêtre.", f: [IN("vis", "voir")], ex: "Voir avec tu : tu vis." },
+{ id: "4-09", s: 4, p: "Le témoin [[0]] (dire) tout ce qu’il savait.", f: [IN("dit", "dire")], ex: "Dire au singulier : il dit (même forme qu’au présent, c’est le récit qui indique le passé simple)." },
+{ id: "4-10", s: 4, p: "Nous ne [[0]] (pouvoir) pas retenir nos rires.", f: [IN("pûmes", "pouvoir")], ex: "Pouvoir avec nous : nous pûmes." },
+{ id: "4-11", s: 4, p: "Les élèves [[0]] (vouloir) recommencer l’expérience.", f: [IN("voulurent", "vouloir")], ex: "Vouloir au pluriel : ils voulurent." },
+{ id: "4-12", s: 4, p: "Elle [[0]] (savoir) immédiatement qu’il mentait.", f: [IN("sut", "savoir")], ex: "Savoir au singulier : elle sut." },
+{ id: "4-13", s: 4, p: "Mes cousins [[0]] (venir) me chercher à la gare.", f: [IN("vinrent", "venir")], ex: "Venir au pluriel : ils vinrent." },
+{ id: "4-14", s: 4, p: "Le professeur [[0]] (mettre) ses lunettes et lut la lettre.", f: [IN("mit", "mettre")], ex: "Mettre au singulier : il mit." },
+{ id: "4-15", s: 4, p: "Nous [[0]] (devoir) attendre une heure.", f: [IN("dûmes", "devoir")], ex: "Devoir avec nous : nous dûmes." },
+{ id: "4-16", s: 4, p: "Le coureur [[0]] (franchir) la ligne en premier.", f: [IN("franchit", "franchir")], ex: "Franchir (2e groupe) au singulier : il franchit." },
+{ id: "4-17", s: 4, p: "Vous [[0]] (lancer) le ballon de toutes vos forces.", f: [IN("lançâtes", "lancer")], ex: "Lancer prend une cédille devant a, et vous un accent circonflexe : vous lançâtes." },
+{ id: "4-18", s: 4, p: "Ils [[0]] (descendre) l’escalier sur la pointe des pieds.", f: [IN("descendirent", "descendre")], ex: "Descendre suit la famille en -i : ils descendirent." },
+{ id: "4-19", s: 4, p: "Je [[0]] (lire) le message deux fois.", f: [IN("lus", "lire")], ex: "Lire suit la famille en -u : je lus." },
+{ id: "4-20", s: 4, p: "Le public [[0]] (applaudir) longuement.", f: [IN("applaudit", "applaudir")], ex: "« Le public » est un sujet singulier : il applaudit." },
+{ id: "4-21", s: 4, p: "Mes parents [[0]] (naître) la même année.", f: [IN("naquirent", "naître")], ex: "Naître au passé simple : ils naquirent." },
+{ id: "4-22", s: 4, p: "Tu [[0]] (tenir) ta promesse jusqu’au bout.", f: [IN("tins", "tenir")], ex: "Tenir se conjugue comme venir : tu tins." },
+
+/* ---------- Chapitre 5 : Transformer ---------- */
+{ id: "5-01", s: 5, ctx: "Tu réécris ce fait divers comme le début d’un roman.", src: "Le gardien entend un bruit. Il descend l’escalier et allume la lumière.", p: "Le gardien [[0]] un bruit. Il [[1]] l’escalier et [[2]] la lumière.", f: [IN("entendit", "entend"), IN("descendit", "descend"), IN("alluma", "allume")], ex: "Trois actions successives : elles passent au passé simple (il entendit, il descendit, il alluma)." },
+{ id: "5-02", s: 5, ctx: "Un élève raconte sa sortie au présent. Réécris son texte au passé pour le journal de l’école.", src: "Nous prenons le car à 8 h. Nous arrivons au musée vers 10 h.", p: "Nous [[0]] le car à 8 h. Nous [[1]] au musée vers 10 h.", f: [IN("prîmes", "prenons"), IN("arrivâmes", "arrivons")], ex: "Avec nous, le passé simple prend un accent circonflexe : nous prîmes, nous arrivâmes." },
+{ id: "5-03", s: 5, ctx: "Transforme ce résumé de film en récit au passé.", src: "Le héros saute dans le vide et s’accroche à une antenne.", p: "Le héros [[0]] dans le vide et s’[[1]] à une antenne.", f: [IN("sauta", "saute"), IN("accrocha", "accroche")], ex: "Deux verbes en -er au singulier : il sauta, il s’accrocha." },
+{ id: "5-04", s: 5, ctx: "Tu écris la suite d’une fanfiction pour un concours d’écriture.", src: "L’héroïne fait un choix risqué. Aussitôt, un portail apparaît.", p: "L’héroïne [[0]] un choix risqué. Aussitôt, un portail [[1]].", f: [IN("fit", "fait"), IN("apparut", "apparaît")], ex: "Faire → elle fit. Apparaître → il apparut (famille en -u)." },
+{ id: "5-05", s: 5, ctx: "Récit d’aventure : mets au passé simple les actions principales.", src: "Les explorateurs découvrent une grotte. Ils y entrent avec prudence.", p: "Les explorateurs [[0]] une grotte. Ils y [[1]] avec prudence.", f: [IN("découvrirent", "découvrent"), IN("entrèrent", "entrent")], ex: "Découvrir suit la famille en -i (ils découvrirent) ; entrer est un verbe en -er (ils entrèrent)." },
+{ id: "5-06", s: 5, ctx: "Tu racontes la fin du match pour le site du club.", src: "À la 89e minute, notre attaquant reçoit le ballon et marque.", p: "À la 89e minute, notre attaquant [[0]] le ballon et [[1]].", f: [IN("reçut", "reçoit"), IN("marqua", "marque")], ex: "Recevoir donne il reçut (avec ç devant u) ; marquer donne il marqua." },
+{ id: "5-07", s: 5, ctx: "Le journal de bord d’une navigatrice devient un récit.", src: "Vous voyez la côte et vous criez de joie.", p: "Vous [[0]] la côte et vous [[1]] de joie.", f: [IN("vîtes", "voyez"), IN("criâtes", "criez")], ex: "Avec vous : vous vîtes (voir), vous criâtes (crier)." },
+{ id: "5-08", s: 5, ctx: "Récit historique : raconte la construction du pont.", src: "Les habitants construisent un pont et le terminent en un an.", p: "Les habitants [[0]] un pont et le [[1]] en un an.", f: [IN("construisirent", "construisent"), IN("terminèrent", "terminent")], ex: "Construire donne ils construisirent ; terminer donne ils terminèrent." },
+{ id: "5-09", s: 5, ctx: "Un souvenir de vacances raconté comme une nouvelle.", src: "Je descends à la plage, je plonge et je nage jusqu’à la bouée.", p: "Je [[0]] à la plage, je [[1]] et je [[2]] jusqu’à la bouée.", f: [IN("descendis", "descends"), IN("plongeai", "plonge"), IN("nageai", "nage")], ex: "Je descendis (famille en -i), je plongeai, je nageai : les verbes en -ger gardent le e devant a." },
+{ id: "5-10", s: 5, ctx: "Roman policier : réécris la scène au passé.", src: "L’inspectrice dit quelques mots, puis elle sort.", p: "L’inspectrice [[0]] quelques mots, puis elle [[1]].", f: [IN("dit", "dit"), IN("sortit", "sort")], ex: "Dire garde la forme « dit » au singulier ; sortir donne elle sortit." },
+{ id: "5-11", s: 5, ctx: "Tu écris le début d’un roman fantasy.", src: "Le dragon se réveille. Il ouvre un œil et pousse un rugissement.", p: "Le dragon se [[0]]. Il [[1]] un œil et [[2]] un rugissement.", f: [IN("réveilla", "réveille"), IN("ouvrit", "ouvre"), IN("poussa", "pousse")], ex: "Il se réveilla, il ouvrit, il poussa : trois actions qui s’enchaînent." },
+{ id: "5-12", s: 5, ctx: "Récit de science-fiction : passe la scène au passé simple.", src: "Les astronautes sortent du vaisseau et plantent un drapeau.", p: "Les astronautes [[0]] du vaisseau et [[1]] un drapeau.", f: [IN("sortirent", "sortent"), IN("plantèrent", "plantent")], ex: "Sortir donne ils sortirent (famille en -i) ; planter donne ils plantèrent." },
+{ id: "5-13", s: 5, ctx: "Tu racontes ta dernière partie de jeu vidéo comme un roman, en t’adressant au joueur.", src: "Tu fais trois pas et tu tiens ta lampe bien haut.", p: "Tu [[0]] trois pas et tu [[1]] ta lampe bien haut.", f: [IN("fis", "fais"), IN("tins", "tiens")], ex: "Faire donne tu fis ; tenir donne tu tins (comme venir : tu vins)." },
+{ id: "5-14", s: 5, ctx: "Biographie d’une scientifique, à rédiger au passé simple.", src: "Marie Curie naît à Varsovie en 1867. Elle obtient deux prix Nobel.", p: "Marie Curie [[0]] à Varsovie en 1867. Elle [[1]] deux prix Nobel.", f: [IN("naquit", "naît"), IN("obtint", "obtient")], ex: "Naître donne elle naquit ; obtenir se conjugue comme tenir : elle obtint." },
+{ id: "5-15", s: 5, ctx: "Récit de randonnée pour le blog de la classe.", src: "Nous courons sous la pluie et nous rentrons trempés.", p: "Nous [[0]] sous la pluie et nous [[1]] trempés.", f: [IN("courûmes", "courons"), IN("rentrâmes", "rentrons")], ex: "Nous courûmes (famille en -u), nous rentrâmes (verbe en -er)." },
+
+/* ---------- Chapitre 6 : Corriger ---------- */
+{ id: "6-01", s: 6, p: "« Nous chantames toute la soirée puis nous rentrâmes. »", f: [CH(["chantames", "rentrâmes"], "chantames", "Forme fautive"), IN("chantâmes", "Correction")], ex: "Avec nous, il faut un accent circonflexe : nous chantâmes." },
+{ id: "6-02", s: 6, p: "« Il fût le premier à franchir la ligne. »", f: [CH(["fût", "franchir"], "fût", "Forme fautive"), IN("fut", "Correction")], ex: "Au singulier, le passé simple n’a pas d’accent : il fut. « Fût » est une forme du subjonctif imparfait." },
+{ id: "6-03", s: 6, p: "« Les enfants courirent vers la plage et plongèrent dans l’eau. »", f: [CH(["courirent", "plongèrent"], "courirent", "Forme fautive"), IN("coururent", "Correction")], ex: "Courir suit la famille en -u : ils coururent." },
+{ id: "6-04", s: 6, p: "« Je mangeai vite et je partai aussitôt. »", f: [CH(["mangeai", "partai"], "partai", "Forme fautive"), IN("partis", "Correction")], ex: "Partir n’est pas un verbe en -er : je partis (famille en -i)." },
+{ id: "6-05", s: 6, p: "« Ils prenèrent leurs sacs et sortirent. »", f: [CH(["prenèrent", "sortirent"], "prenèrent", "Forme fautive"), IN("prirent", "Correction")], ex: "Prendre change de radical : ils prirent." },
+{ id: "6-06", s: 6, p: "« Elle venit seule et repartit sans un mot. »", f: [CH(["venit", "repartit"], "venit", "Forme fautive"), IN("vint", "Correction")], ex: "Venir suit la famille en -in : elle vint." },
+{ id: "6-07", s: 6, p: "« Vous fites une découverte et vous la présentâtes au jury. »", f: [CH(["fites", "présentâtes"], "fites", "Forme fautive"), IN("fîtes", "Correction")], ex: "Avec vous, l’accent circonflexe est obligatoire : vous fîtes." },
+{ id: "6-08", s: 6, p: "« Ils commencèrent à ranger, puis ils mangèrent et finèrent le dessert. »", f: [CH(["commencèrent", "mangèrent", "finèrent"], "finèrent", "Forme fautive"), IN("finirent", "Correction")], ex: "Finir est un verbe en -ir : ils finirent, pas -èrent." },
+{ id: "6-09", s: 6, p: "« Nous voulûmes partir, mais nous ne pumes pas. »", f: [CH(["voulûmes", "pumes"], "pumes", "Forme fautive"), IN("pûmes", "Correction")], ex: "Avec nous, l’accent circonflexe est obligatoire : nous pûmes." },
+{ id: "6-10", s: 6, p: "« Le gardien de but sauta et voya le ballon passer au-dessus de lui. »", f: [CH(["sauta", "voya"], "voya", "Forme fautive"), IN("vit", "Correction")], ex: "Voir n’est pas un verbe en -er : il vit (famille en -i)." },
+{ id: "6-11", s: 6, p: "« Tu allas au concert et tu achetais un t-shirt du groupe. » (deux actions qui se suivent)", f: [CH(["allas", "achetais"], "achetais", "Forme fautive"), IN("achetas", "Correction")], ex: "Les deux actions se suivent : passé simple pour les deux (tu achetas). « Achetais », c’est l’imparfait." },
+{ id: "6-12", s: 6, p: "« Elles dirent au revoir et s’en allairent. »", f: [CH(["dirent", "allairent"], "allairent", "Forme fautive"), IN("allèrent", "Correction")], ex: "Aller se conjugue comme un verbe en -er : elles s’en allèrent." },
+{ id: "6-13", s: 6, p: "« Il commenca à pleuvoir et nous rentrâmes. »", f: [CH(["commenca", "rentrâmes"], "commenca", "Forme fautive"), IN("commença", "Correction")], ex: "Devant a, le c prend une cédille : il commença." },
+{ id: "6-14", s: 6, p: "« Je sus la réponse, mais je ne la disai pas. »", f: [CH(["sus", "disai"], "disai", "Forme fautive"), IN("dis", "Correction")], ex: "Dire suit la famille en -i : je dis." },
+{ id: "6-15", s: 6, p: "« Les spectateurs se levèrent et le public applaudirent. »", f: [CH(["levèrent", "applaudirent"], "applaudirent", "Forme fautive"), IN("applaudit", "Correction")], ex: "« Le public » est singulier : il applaudit." },
+{ id: "6-16", s: 6, p: "« Mes amis et moi eûmes peur, puis nous rirent de bon cœur. »", f: [CH(["eûmes", "rirent"], "rirent", "Forme fautive"), IN("rîmes", "Correction")], ex: "Le sujet est nous : nous rîmes. « Rirent » correspond à ils ou elles." },
+{ id: "6-17", s: 6, p: "« Les deux sœurs se regardèrent, éclatèrent de rire, puis se tairent. »", f: [CH(["regardèrent", "éclatèrent", "tairent"], "tairent", "Forme fautive"), IN("turent", "Correction")], ex: "Se taire suit la famille en -u : elles se turent." },
+
+/* ---------- Chapitre 7 : Passé simple ou imparfait ---------- */
+{ id: "7-01", s: 7, p: "Il [[0]] depuis le matin et les rues [[1]] désertes. Soudain, un coup de tonnerre [[2]] et toutes les lumières s’[[3]].", f: [SEL(["pleuvait", "plut"], "pleuvait", "decor"), SEL(["étaient", "furent"], "étaient", "decor"), SEL(["éclatait", "éclata"], "éclata", "sudden"), SEL(["éteignaient", "éteignirent"], "éteignirent", "succ")] },
+{ id: "7-02", s: 7, p: "Chaque été, ma grand-mère nous [[0]] à la mer. Cet été-là, pourtant, nous [[1]] à la montagne.", f: [SEL(["emmenait", "emmena"], "emmenait", "habit"), SEL(["partions", "partîmes"], "partîmes", "event")] },
+{ id: "7-03", s: 7, p: "Le centre commercial [[0]] presque vide : quelques clients [[1]] les vitrines. Tout à coup, l’alarme incendie [[2]].", f: [SEL(["était", "fut"], "était", "decor"), SEL(["regardaient", "regardèrent"], "regardaient", "decor"), SEL(["retentissait", "retentit"], "retentit", "sudden")] },
+{ id: "7-04", s: 7, p: "Julie [[0]] une série quand son téléphone [[1]].", f: [SEL(["regardait", "regarda"], "regardait", "progress"), SEL(["vibrait", "vibra"], "vibra", "sudden")] },
+{ id: "7-05", s: 7, p: "Ce jour-là, le chevalier [[0]] de son cheval, [[1]] son épée et [[2]] vers le dragon.", f: [SEL(["descendait", "descendit"], "descendit", "succ"), SEL(["tirait", "tira"], "tira", "succ"), SEL(["s’avançait", "s’avança"], "s’avança", "succ")] },
+{ id: "7-06", s: 7, p: "Autrefois, les villageois [[0]] l’eau au puits. Un jour, une ingénieure [[1]] au village et [[2]] une pompe.", f: [SEL(["puisaient", "puisèrent"], "puisaient", "habit"), SEL(["arrivait", "arriva"], "arriva", "event"), SEL(["installait", "installa"], "installa", "succ")] },
+{ id: "7-07", s: 7, p: "La forêt [[0]] sombre et humide. Les oiseaux ne [[1]] plus. Le garçon [[2]] une branche et la [[3]] en deux.", f: [SEL(["était", "fut"], "était", "decor"), SEL(["chantaient", "chantèrent"], "chantaient", "decor"), SEL(["ramassait", "ramassa"], "ramassa", "event"), SEL(["cassait", "cassa"], "cassa", "succ")] },
+{ id: "7-08", s: 7, p: "Pendant que nous [[0]] le barbecue, une guêpe [[1]] sur les chips.", f: [SEL(["préparions", "préparâmes"], "préparions", "progress"), SEL(["se posait", "se posa"], "se posa", "sudden")] },
+{ id: "7-09", s: 7, p: "Le professeur [[0]] toujours ses cours par une question. Ce matin-là, il [[1]] par une blague.", f: [SEL(["commençait", "commença"], "commençait", "habit"), SEL(["commençait", "commença"], "commença", "event")] },
+{ id: "7-10", s: 7, p: "Il [[0]] minuit. Le vieux manoir [[1]] silencieux. Brusquement, une porte [[2]].", f: [SEL(["était", "fut"], "était", "decor"), SEL(["semblait", "sembla"], "semblait", "decor"), SEL(["claquait", "claqua"], "claqua", "sudden")] },
+{ id: "7-11", s: 7, p: "Mes voisins [[0]] souvent de la musique le soir. Un samedi, la police [[1]] sonner à leur porte.", f: [SEL(["jouaient", "jouèrent"], "jouaient", "habit"), SEL(["venait", "vint"], "vint", "event")] },
+{ id: "7-12", s: 7, p: "Nous [[0]] tranquillement sur le chemin quand un sanglier [[1]] devant nous. Nous [[2]] aussitôt demi-tour.", f: [SEL(["marchions", "marchâmes"], "marchions", "progress"), SEL(["surgissait", "surgit"], "surgit", "sudden"), SEL(["faisions", "fîmes"], "fîmes", "succ")] },
+{ id: "7-13", s: 7, p: "En été, le soleil se [[0]] tard et les jeunes du quartier [[1]] au skatepark jusqu’au soir. Le 21 juillet, un orage [[2]] la fête.", f: [SEL(["couchait", "coucha"], "couchait", "habit"), SEL(["traînaient", "traînèrent"], "traînaient", "habit"), SEL(["gâchait", "gâcha"], "gâcha", "event")] },
+{ id: "7-14", s: 7, p: "La salle [[0]] pleine et le public [[1]] avec impatience. Enfin, la chanteuse [[2]] sur scène et [[3]] la première chanson.", f: [SEL(["était", "fut"], "était", "decor"), SEL(["attendait", "attendit"], "attendait", "progress"), SEL(["entrait", "entra"], "entra", "event"), SEL(["entonnait", "entonna"], "entonna", "succ")] },
+{ id: "7-15", s: 7, p: "Léo [[0]] un garçon timide qui [[1]] rarement en classe. Pourtant, ce jour-là, il [[2]] la main et [[3]] la parole.", f: [SEL(["était", "fut"], "était", "decor"), SEL(["parlait", "parla"], "parlait", "habit"), SEL(["levait", "leva"], "leva", "event"), SEL(["prenait", "prit"], "prit", "succ")] },
+{ id: "7-16", s: 7, p: "Le train [[0]] à toute vitesse dans la nuit. Les passagers [[1]]. Soudain, le conducteur [[2]] les freins.", f: [SEL(["roulait", "roula"], "roulait", "progress"), SEL(["dormaient", "dormirent"], "dormaient", "decor"), SEL(["actionnait", "actionna"], "actionna", "sudden")] }
+];
+
+/* ===== Application ===== */
+(function () {
+"use strict";
+
+var SERIES = [
+  { n: 1, rom: "I", t: "Reconnaître", d: "Repérer les verbes au passé simple.", q: "Quelle forme est au passé simple ?",
+    h: "Élimine d’abord les terminaisons que tu connais : -ait (imparfait), -ra (futur)… Il reste celle du passé simple." },
+  { n: 2, rom: "II", t: "Associer", d: "Retrouver l’infinitif et le sujet d’une forme.", q: "Retrouve l’infinitif et le sujet de cette forme.",
+    h: "Le début du mot te donne le verbe, la fin te donne la personne : -mes = nous, -tes = vous, -rent = ils/elles." },
+  { n: 3, rom: "III", t: "Terminaisons", d: "Compléter la fin du verbe.", q: "Écris la terminaison du verbe au passé simple.",
+    h: "Verbe en -er ? Alors c’est -ai, -as, -a, -âmes, -âtes, -èrent. Sinon, cherche sa famille : -i, -u ou -in." },
+  { n: 4, rom: "IV", t: "Conjuguer", d: "Écrire la forme complète dans une phrase.", q: "Conjugue le verbe entre parenthèses au passé simple.",
+    h: "Qui fait l’action ? Trouve le sujet, puis la famille de terminaisons du verbe. Le rappel de cours est là si tu bloques." },
+  { n: 5, rom: "V", t: "Transformer", d: "Passer un court texte du présent au passé simple.", q: "Réécris les verbes au passé simple.",
+    h: "Le sujet ne bouge pas, seul le verbe change de temps. Le verbe d’origine est entre parenthèses." },
+  { n: 6, rom: "VI", t: "Corriger", d: "Repérer une forme fautive et la corriger.", q: "Une forme verbale est fautive. Repère-la, puis écris-la correctement.",
+    h: "Passe chaque verbe au contrôle : l’accent, la terminaison, l’accord avec le sujet." },
+  { n: 7, rom: "VII", t: "Passé simple ou imparfait ?", d: "Choisir le bon temps dans un récit.", q: "Choisis la forme qui convient dans ce récit.",
+    h: "Pose-toi la question : ça décrit la situation (imparfait) ou ça fait avancer l’histoire (passé simple) ?" }
+];
+var EMPLOI = {
+  decor: "Ça décrit le décor ou une situation qui dure : imparfait.",
+  habit: "C’est une habitude (chaque été, toujours, souvent, autrefois…) : imparfait.",
+  progress: "L’action était en train de se passer quand autre chose est arrivé : imparfait.",
+  event: "Ça ne se passe qu’une fois (ce jour-là, un jour, cet été-là…) et ça fait avancer l’histoire : passé simple.",
+  sudden: "Un événement soudain (soudain, tout à coup, brusquement…) casse la situation : passé simple.",
+  succ: "Des actions qui s’enchaînent, l’une après l’autre : passé simple."
+};
+var CATS = {
+  accent: "Accents et cédille (â, î, û, è, ç)",
+  orth: "Orthographe du radical (-ger : e conservé)",
+  temps: "Confusion avec l’imparfait",
+  famille: "Famille de terminaisons (-a, -i, -u, -in)",
+  personne: "Accord avec le sujet (personne)",
+  radical: "Radical des verbes irréguliers",
+  present: "Confusion avec le présent",
+  choix: "Choix entre passé simple et imparfait",
+  reco: "Repérage et identification des formes",
+  autre: "Autres erreurs de forme"
+};
+var FAM = { a: "-ai, -as, -a, -âmes, -âtes, -èrent", i: "-is, -is, -it, -îmes, -îtes, -irent", u: "-us, -us, -ut, -ûmes, -ûtes, -urent", "in": "-ins, -ins, -int, -înmes, -întes, -inrent" };
+var FAMN = { a: "en -a", i: "en -i", u: "en -u", "in": "en -in" };
+var POINTS_FIRST = 10, POINTS_SECOND = 6;
+
+/* ---------- Stockage ---------- */
+var KEY = "chronique-passe-simple-v1";
+var storageOK = true;
+function defaults() {
+  return {
+    prefs: { size: "1", lh: "1.55", contrast: "std", reduce: false, simple: false },
+    motiv: { points: true, goal: true, timer: false },
+    last: { mode: "path", size: 10 },
+    prog: {}, errors: [], sessions: 0, points: 0
+  };
+}
+function loadStore() {
+  var d = defaults();
+  try {
+    var t = "__chronique_test__";
+    window.localStorage.setItem(t, t); window.localStorage.removeItem(t);
+    var raw = window.localStorage.getItem(KEY);
+    if (raw) {
+      var s = JSON.parse(raw);
+      if (s && typeof s === "object") {
+        d.prefs = Object.assign(d.prefs, s.prefs || {});
+        d.motiv = Object.assign(d.motiv, s.motiv || {});
+        d.last = Object.assign(d.last, s.last || {});
+        d.prog = s.prog || {}; d.errors = Array.isArray(s.errors) ? s.errors : [];
+        d.sessions = s.sessions || 0; d.points = s.points || 0;
+      }
+    }
+  } catch (e) { storageOK = false; }
+  return d;
+}
+var store = loadStore();
+function save() {
+  if (!storageOK) return;
+  try { window.localStorage.setItem(KEY, JSON.stringify(store)); }
+  catch (e) { storageOK = false; showWarn(); }
+}
+function showWarn() { var w = $("#storage-warn"); if (w) w.hidden = storageOK; }
+
+/* ---------- Outils ---------- */
+function $(s, r) { return (r || document).querySelector(s); }
+function $$(s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); }
+function esc(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
+function shuffle(a) { a = a.slice(); for (var i = a.length - 1; i > 0; i--) { var j = Math.floor(Math.random() * (i + 1)); var t = a[i]; a[i] = a[j]; a[j] = t; } return a; }
+function serie(n) { return SERIES[n - 1]; }
+function byId(id) { for (var i = 0; i < BANK.length; i++) if (BANK[i].id === id) return BANK[i]; return null; }
+function fmtTime(ms) { var s = Math.round(ms / 1000), m = Math.floor(s / 60); s = s % 60; return m + " min " + (s < 10 ? "0" : "") + s + " s"; }
+function clock(ms) { var s = Math.floor(ms / 1000), m = Math.floor(s / 60); s = s % 60; return (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s; }
+function pickOne(a) { return a[Math.floor(Math.random() * a.length)]; }
+function plural(n, a, b) { return n + " " + (n > 1 ? b : a); }
+
+/* ---------- Normalisation & diagnostic ---------- */
+function norm(s) {
+  return String(s || "").normalize("NFC")
+    .replace(/[’‘`´ʼ]/g, "'")
+    .replace(/[  ]/g, " ")
+    .trim().replace(/\s+/g, " ").replace(/\s*'\s*/g, "'")
+    .toLowerCase().replace(/[.!?;,:]+$/, "").replace(/^[-–]\s*/, "").trim();
+}
+function strip(s) { return s.normalize("NFD").replace(/[̀-ͯ]/g, ""); }
+var RX_FAM = [
+  ["in", /(ins|int|inmes|intes|inrent)$/],
+  ["u", /(us|ut|umes|utes|urent)$/],
+  ["a", /(ai|as|a|ames|ates|erent)$/],
+  ["i", /(is|it|imes|ites|irent)$/]
+];
+function famille(s) { for (var i = 0; i < RX_FAM.length; i++) { var m = s.match(RX_FAM[i][1]); if (m) return { f: RX_FAM[i][0], end: m[1] }; } return null; }
+
+function diagnose(exp, giv, field) {
+  var E = norm(exp), G = norm(giv), sE = strip(E), sG = strip(G);
+  if (field && field.w && field.w[G]) return { cat: "autre", hint: field.w[G], msg: field.w[G] };
+  if (G === "") return { cat: "autre", hint: "Tu n’as rien écrit.", msg: "Tu n’as rien écrit." };
+  if (sE === sG) {
+    if (/ç/.test(E) && !/ç/.test(G)) return { cat: "accent", hint: "Regarde le c : devant a ou u, il a besoin d’une cédille.", msg: "Il manque la cédille : devant a ou u, on écrit ç pour garder le son [s] (il commença, il reçut)." };
+    var cE = /[âêîôû]/.test(E), cG = /[âêîôû]/.test(G);
+    if (cE && !cG) return { cat: "accent", hint: "Il manque un accent. Avec nous et vous, le passé simple a toujours un accent circonflexe.", msg: "Il manque l’accent circonflexe : avec nous et vous, le passé simple en prend toujours un (-âmes, -îmes, -ûmes, -înmes…)." };
+    if (!cE && cG) return { cat: "accent", hint: "Il y a un accent en trop. Au singulier, le passé simple n’a pas d’accent circonflexe.", msg: "Pas d’accent circonflexe ici : au singulier, on écrit il fut, il eut, il fit. Les formes avec accent (fût, eût) appartiennent à un autre temps." };
+    if (/è/.test(E) && !/è/.test(G)) return { cat: "accent", hint: "Vérifie l’accent de la terminaison -èrent.", msg: "Il faut un accent grave : -èrent (ils chantèrent)." };
+    return { cat: "accent", hint: "Presque ! Les lettres sont bonnes : vérifie les accents.", msg: "Les lettres sont bonnes, mais pas les accents." };
+  }
+  if (/gea/.test(sE) && sG === sE.replace(/gea/g, "ga")) return { cat: "orth", hint: "Après le g, il manque une lettre qui garde le son [ʒ].", msg: "Après g, on garde un e devant a pour conserver le son [ʒ] : nous mangeâmes, je plongeai." };
+  var imp = /(ais|ait|ions|iez|aient)$/;
+  if (imp.test(sG) && !imp.test(sE)) return { cat: "temps", hint: "Ta forme ressemble à de l’imparfait. On attend le passé simple.", msg: "Tu as écrit une forme de l’imparfait (ou du conditionnel). Ici, on attend le passé simple." };
+  var fE = famille(sE), fG = famille(sG);
+  if (fE && fG && fE.f !== fG.f) return { cat: "famille", hint: "Ce verbe n’utilise pas les terminaisons " + FAMN[fG.f] + ". Revois les quatre familles dans le rappel de cours.", msg: "Ce verbe prend les terminaisons " + FAMN[fE.f] + " (" + FAM[fE.f] + "), pas " + FAMN[fG.f] + "." };
+  if (fE && fG && fE.end !== fG.end) {
+    var stemE = sE.slice(0, sE.length - fE.end.length), stemG = sG.slice(0, sG.length - fG.end.length);
+    if (stemE === stemG) return { cat: "personne", hint: "La bonne famille de terminaisons, mais pas la bonne personne : regarde le sujet.", msg: "Bonne famille de terminaisons, mais la terminaison ne correspond pas au sujet." };
+    return { cat: "radical", hint: "Le radical et la terminaison ne conviennent pas tous les deux. Vérifie le sujet et le radical du verbe.", msg: "Le radical et la terminaison ne correspondent pas à la forme attendue." };
+  }
+  if (fE && fG && fE.end === fG.end) return { cat: "radical", hint: "La terminaison est bonne, mais pas le radical. Ce verbe est irrégulier : vérifie le rappel de cours.", msg: "La terminaison est bonne, mais le radical ne convient pas : ce verbe change de radical au passé simple." };
+  if (!fG && /(e|es|ent|ons|ez)$/.test(sG)) return { cat: "present", hint: "Ta forme ressemble au présent. On attend le passé simple.", msg: "Ta forme ressemble au présent. Ici, on attend le passé simple." };
+  return { cat: "autre", hint: "Ce n’est pas la forme attendue. Vérifie le radical et la terminaison.", msg: "Ce n’est pas la forme attendue : vérifie le radical et la terminaison." };
+}
+function accepts(field, giv) {
+  var G = norm(giv);
+  if (G === norm(field.a)) return true;
+  if (field.alt) for (var i = 0; i < field.alt.length; i++) if (G === norm(field.alt[i])) return true;
+  return false;
+}
+
+/* ---------- Préférences d'affichage ---------- */
+function applyPrefs() {
+  var p = store.prefs, h = document.documentElement;
+  h.style.setProperty("--fs", p.size);
+  h.style.setProperty("--lh", p.lh);
+  h.setAttribute("data-contrast", p.contrast);
+  h.classList.toggle("reduce", !!p.reduce);
+  h.classList.toggle("simple", !!p.simple);
+}
+function syncPrefsUI() {
+  var p = store.prefs;
+  $$('#set-size input').forEach(function (i) { i.checked = i.value === p.size; });
+  $$('#set-lh input').forEach(function (i) { i.checked = i.value === p.lh; });
+  $$('#set-contrast input').forEach(function (i) { i.checked = i.value === p.contrast; });
+  $("#set-reduce").checked = !!p.reduce; $("#set-simple").checked = !!p.simple;
+}
+function initPrefs() {
+  applyPrefs(); syncPrefsUI();
+  $$('#set-size input, #set-lh input, #set-contrast input').forEach(function (i) {
+    i.addEventListener("change", function () { store.prefs[i.name] = i.value; applyPrefs(); save(); });
+  });
+  $("#set-reduce").addEventListener("change", function (e) { store.prefs.reduce = e.target.checked; applyPrefs(); save(); });
+  $("#set-simple").addEventListener("change", function (e) { store.prefs.simple = e.target.checked; applyPrefs(); save(); });
+  $("#set-reset").addEventListener("click", function () { store.prefs = defaults().prefs; applyPrefs(); syncPrefsUI(); save(); });
+}
+
+/* ---------- Dialogues ---------- */
+var lastOpener = null;
+function openDialog(d, opener) {
+  lastOpener = opener || document.activeElement;
+  if (typeof d.showModal === "function") { if (!d.open) d.showModal(); }
+  else d.setAttribute("open", "");
+  var c = d.querySelector("[data-close]"); if (c) c.focus();
+}
+function closeDialog(d) {
+  if (typeof d.close === "function") d.close(); else d.removeAttribute("open");
+}
+function initDialogs() {
+  $$("dialog").forEach(function (d) {
+    d.addEventListener("close", function () { if (lastOpener && document.contains(lastOpener)) lastOpener.focus(); });
+    d.addEventListener("click", function (e) { if (e.target === d) closeDialog(d); });
+    $$("[data-close]", d).forEach(function (b) { b.addEventListener("click", function () { closeDialog(d); }); });
+    d.addEventListener("keydown", function (e) { if (e.key === "Escape" && typeof d.showModal !== "function") closeDialog(d); });
+  });
+  $("#btn-confort").addEventListener("click", function (e) { openDialog($("#dlg-confort"), e.currentTarget); });
+  $("#btn-rappel").addEventListener("click", function (e) { openDialog($("#dlg-rappel"), e.currentTarget); });
+  $$("#dlg-rappel nav a").forEach(function (a) {
+    a.addEventListener("click", function (e) {
+      e.preventDefault(); var t = $(a.getAttribute("href"));
+      if (t) { t.scrollIntoView({ block: "start" }); t.focus({ preventScroll: true }); }
+    });
+  });
+}
+
+/* ---------- Confirmation (sans window.confirm) ---------- */
+var confirmCb = null;
+function askConfirm(title, text, okLabel, cb, opener) {
+  var d = $("#dlg-confirm");
+  $("#h-confirm").textContent = title; $("#confirm-text").textContent = text; $("#confirm-ok").textContent = okLabel;
+  confirmCb = cb; lastOpener = opener || document.activeElement;
+  if (typeof d.showModal === "function") { if (!d.open) d.showModal(); } else d.setAttribute("open", "");
+  $("#confirm-cancel").focus();
+}
+function initConfirm() {
+  var d = $("#dlg-confirm");
+  $("#confirm-cancel").addEventListener("click", function () { confirmCb = null; closeDialog(d); });
+  $("#confirm-ok").addEventListener("click", function () {
+    var cb = confirmCb; confirmCb = null; lastOpener = null; closeDialog(d); if (cb) cb();
+  });
+}
+
+/* ---------- Écrans ---------- */
+var SCREENS = ["home", "session", "summary", "progress", "options"];
+function show(name) {
+  SCREENS.forEach(function (s) { $("#screen-" + s).hidden = s !== name; });
+  if (name !== "session") stopTimer();
+  window.scrollTo(0, 0);
+  var h = $("#screen-" + name + " h1, #screen-" + name + " h2");
+  if (h) { h.setAttribute("tabindex", "-1"); h.focus(); }
+}
+
+/* ---------- Progression ---------- */
+function rec(id) { return store.prog[id] || null; }
+function mastered(id) { var r = rec(id); return !!(r && r.last === "f"); }
+function seriesStats(n) {
+  var qs = BANK.filter(function (q) { return q.s === n; }), m = 0, seen = 0;
+  qs.forEach(function (q) { if (rec(q.id)) seen++; if (mastered(q.id)) m++; });
+  return { total: qs.length, m: m, seen: seen };
+}
+function cleanErrors() { store.errors = store.errors.filter(function (id) { return !!byId(id); }); }
+function recommended() {
+  for (var i = 1; i <= SERIES.length; i++) { var st = seriesStats(i); if (st.m / st.total < 0.7) return i; }
+  return null;
+}
+
+/* ---------- Accueil ---------- */
+function renderHome() {
+  cleanErrors();
+  var L = store.last, rcm = recommended();
+  var html = '<div class="hero"><div><p class="kicker deco">Entraînement · 3e secondaire</p>' +
+    '<h1 id="h-home">Le passé simple, c’est le temps des histoires.</h1>' +
+    '<p class="lead">Romans, sagas, légendes, récits de match : dès qu’on raconte par écrit, il est là. Choisis ce que tu veux travailler et lance-toi. Tu as deux essais par question.</p></div></div>' +
+    '<div class="home-grid"><div id="start-form" class="card">' +
+    '<fieldset><legend><span class="step" aria-hidden="true">1</span>Que veux-tu travailler ?</legend><div class="chapters">' +
+    opt("mode", "path", "↗", "Parcours progressif", "Un peu de chaque chapitre, du plus simple au plus exigeant.", "", L.mode === "path", true) +
+    SERIES.map(function (s) {
+      var st = seriesStats(s.n);
+      return opt("mode", String(s.n), s.rom, "Chapitre " + s.n + " · " + s.t, s.d, st.m + " sur " + st.total + " maîtrisées", L.mode === String(s.n));
+    }).join("") +
+    opt("mode", "mix", "✦", "Mélange libre", "Des questions de tous les chapitres, au hasard.", "", L.mode === "mix", true) +
+    '</div></fieldset>' +
+    '<fieldset><legend><span class="step" aria-hidden="true">2</span>Combien de questions ?</legend><div class="sizes">' +
+    [10, 15, 20].map(function (n) { return '<label class="opt"><input type="radio" name="size" value="' + n + '"' + (L.size === n ? " checked" : "") + '><span class="t">' + n + " questions</span></label>"; }).join("") +
+    '</div></fieldset>' +
+    '<button type="button" class="btn btn-primary btn-big" id="start-btn">Commencer la séance <span aria-hidden="true">→</span></button>' +
+    '</div><aside class="side" aria-label="Suivi">' +
+    '<div class="card"><h2>Mes erreurs</h2><p>' + (store.errors.length ? plural(store.errors.length, "question est à reprendre.", "questions sont à reprendre.") : "Aucune question à reprendre pour l’instant.") + '</p>' +
+    '<button type="button" class="btn" id="go-errors"' + (store.errors.length ? "" : " disabled") + '>Reprendre mes erreurs</button></div>' +
+    '<div class="card"><h2>Mon suivi</h2><p>' + plural(BANK.filter(function (q) { return mastered(q.id); }).length, "question maîtrisée", "questions maîtrisées") + " sur " + BANK.length + '.</p>' +
+    '<button type="button" class="btn" id="go-progress">Voir ma progression</button>' +
+    '<button type="button" class="btn" id="go-options">Options et motivation</button></div>' +
+    (rcm ? '<p class="tip">Conseil : tu peux travailler le <strong>chapitre ' + rcm + " · " + esc(serie(rcm).t) + '</strong>.</p>' : '<p class="tip">Tous les chapitres sont bien maîtrisés. Un petit mélange libre de temps en temps, pour garder la main ?</p>') +
+    '</aside></div>';
+  $("#screen-home").innerHTML = html;
+  $("#start-btn").addEventListener("click", function () {
+    var box = $("#start-form");
+    var m = ($('input[name="mode"]:checked', box) || {}).value || "path";
+    var n = parseInt(($('input[name="size"]:checked', box) || {}).value || "10", 10);
+    store.last = { mode: m, size: n }; save();
+    startSession(m, n);
+  });
+  $("#go-errors").addEventListener("click", function () { startSession("errors", store.last.size || 10); });
+  $("#go-progress").addEventListener("click", function () { renderProgress(); show("progress"); });
+  $("#go-options").addEventListener("click", function () { renderOptions(); show("options"); });
+}
+function opt(name, val, rom, t, d, m, checked, wide) {
+  return '<label class="opt' + (wide ? " wide" : "") + '"><input type="radio" name="' + name + '" value="' + val + '"' + (checked ? " checked" : "") + '>' +
+    '<span class="rom" aria-hidden="true">' + rom + '</span><span><span class="t">' + esc(t) + '</span><span class="d">' + esc(d) + '</span>' +
+    (m ? '<span class="m">' + esc(m) + "</span>" : "") + "</span></label>";
+}
+
+/* ---------- Construction des séances ---------- */
+function priority(q) {
+  var r = rec(q.id);
+  if (!r) return 0;
+  if (r.last !== "f") return 1;
+  return 2 + (r.t || 0) / 1e15;
+}
+function pick(pool, n) {
+  var sorted = shuffle(pool).sort(function (a, b) {
+    var pa = priority(a), pb = priority(b);
+    if (Math.floor(pa) !== Math.floor(pb)) return Math.floor(pa) - Math.floor(pb);
+    return pa >= 2 ? pa - pb : 0;
+  });
+  return sorted.slice(0, n);
+}
+function buildList(mode, size) {
+  if (mode === "errors") return shuffle(store.errors.map(byId).filter(Boolean)).slice(0, size);
+  if (mode === "mix") return pick(BANK, size);
+  if (mode === "path") {
+    var buckets = SERIES.map(function (s) { return pick(BANK.filter(function (q) { return q.s === s.n; }), 20); });
+    var out = [], i = 0;
+    while (out.length < size) { var b = buckets[i % 7]; if (b.length) out.push(b.shift()); i++; if (i > 400) break; }
+    return out.sort(function (a, b) { return a.s - b.s; });
+  }
+  var n = parseInt(mode, 10);
+  return pick(BANK.filter(function (q) { return q.s === n; }), size);
+}
+
+/* ---------- Séance ---------- */
+var S = null, timerId = null;
+function startSession(mode, size, list) {
+  var qs = list || buildList(mode, size);
+  if (!qs.length) { renderHome(); show("home"); return; }
+  S = {
+    mode: mode, size: size, idx: 0, start: Date.now(), end: null, pts: 0,
+    items: qs.map(function (q) {
+      return { q: q, opts: q.f.map(function (f) { return f.o ? (f.fixed ? f.o.slice() : shuffle(f.o)) : null; }),
+        attempt: 0, st: q.f.map(function () { return null; }), ans: [[], []], cats: [], status: null };
+    })
+  };
+  show("session");
+  renderQuestion();
+  startTimer();
+}
+function modeLabel(m) {
+  if (m === "path") return "Parcours progressif";
+  if (m === "mix") return "Mélange libre";
+  if (m === "errors") return "Reprise des erreurs";
+  if (m === "redo") return "Questions à refaire";
+  return "Chapitre " + m + " · " + serie(parseInt(m, 10)).t;
+}
+function startTimer() {
+  stopTimer();
+  if (!store.motiv.timer) return;
+  timerId = setInterval(function () { var el = $("#timer"); if (el && S) el.textContent = clock(Date.now() - S.start); }, 1000);
+}
+function stopTimer() { if (timerId) { clearInterval(timerId); timerId = null; } }
+
+function fieldHTML(it, i, inline) {
+  var f = it.q.f[i], id = "f" + i, lab = f.l || ("réponse " + (i + 1));
+  if (f.k === "in") {
+    var cls = "fin" + (it.q.s === 3 ? " end" : "");
+    var input = '<input class="' + cls + '" id="' + id + '" type="text" autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false" aria-label="' +
+      esc(it.q.s === 3 ? "Terminaison" : (it.q.s === 5 ? "Passé simple de « " + lab + " »" : (inline ? "Passé simple de " + lab : lab))) + '">';
+    if (inline) return '<span class="slot" data-slot="' + i + '">' + input + '<span class="mark" aria-hidden="true"></span></span>' + (it.q.s === 5 ? ' <span class="note">(' + esc(lab) + ')</span>' : "");
+    return '<div class="block-field slot" data-slot="' + i + '"><label for="' + id + '">' + esc(lab) + '</label>' + input + ' <span class="mark" aria-hidden="true"></span></div>';
+  }
+  if (f.k === "sel") {
+    return '<span class="slot" data-slot="' + i + '"><select class="fin" id="' + id + '" aria-label="Choix ' + (i + 1) + '"><option value="">— choisis —</option>' +
+      it.opts[i].map(function (o) { return '<option>' + esc(o) + "</option>"; }).join("") + '</select><span class="mark" aria-hidden="true"></span></span>';
+  }
+  var legend = f.l || "Choisis une réponse";
+  return '<fieldset class="grp block-field" data-slot="' + i + '"><legend>' + esc(legend) + '</legend><div class="choices' + (f.fixed ? " subj" : "") + '">' +
+    it.opts[i].map(function (o, j) {
+      return '<label class="choice"><input type="radio" name="' + id + '" value="' + esc(o) + '" id="' + id + "-" + j + '"><span>' + esc(o) + '</span><span class="tag"></span></label>';
+    }).join("") + "</div></fieldset>";
+}
+
+function renderQuestion() {
+  var it = S.items[S.idx], q = it.q, se = serie(q.s), n = S.items.length;
+  var prompt = q.p ? esc(q.p) : "";
+  var used = {};
+  prompt = prompt.replace(/\[\[(\d+)\]\]/g, function (m, k) { used[k] = 1; return fieldHTML(it, parseInt(k, 10), true); });
+  var blocks = q.f.map(function (f, i) { return used[i] ? "" : fieldHTML(it, i, false); }).join("");
+  var M = store.motiv;
+  var html = '<div class="sbar"><span class="where">' + esc(modeLabel(S.mode)) + '</span>' +
+    '<span class="pill">Question ' + (S.idx + 1) + " sur " + n + "</span>" +
+    (M.goal ? '<span class="pill">Objectif : ' + goal() + " réussites</span>" : "") +
+    (M.points ? '<span class="pill">Points : <span id="spts">' + S.pts + "</span></span>" : "") +
+    (M.timer ? '<span class="pill">Temps écoulé : <span id="timer">' + clock(Date.now() - S.start) + "</span></span>" : "") +
+    '<button type="button" class="btn btn-ghost" id="quit">Quitter la séance</button></div>' +
+    '<div class="track" aria-hidden="true"><span style="width:' + Math.round(S.idx / n * 100) + '%"></span></div>' +
+    '<div class="qcard" id="qform">' +
+    '<p class="chap"><span aria-hidden="true">' + se.rom + '</span> Chapitre ' + se.n + " · " + esc(se.t) + "</p>" +
+    '<h2 id="h-session">' + esc(q.q || se.q) + "</h2>" +
+    (q.ctx ? '<p class="ctx">' + esc(q.ctx) + "</p>" : "") +
+    (q.src ? '<div class="src"><span class="lab">Texte au présent</span>' + esc(q.src) + "</div>" + '<p class="note">Texte à compléter au passé simple :</p>' : "") +
+    (prompt ? '<p class="qtext' + (q.s === 2 ? " srconly" : "") + '">' + prompt + "</p>" : "") +
+    blocks +
+    '<p class="formmsg" id="formmsg" role="alert"></p>' +
+    '<div id="fb" role="status" aria-live="polite"></div>' +
+    '<div class="actions" id="qactions"><button type="button" class="btn btn-primary" id="validate">Valider</button>' +
+    '<button type="button" class="btn btn-ghost" id="open-rappel2">Ouvrir le rappel de cours</button></div></div>';
+  $("#screen-session").innerHTML = html;
+  $("#validate").addEventListener("click", validate);
+  $("#qform").addEventListener("keydown", function (e) {
+    if (e.key !== "Enter" || !e.target.matches("input[type=text], select, input[type=radio]")) return;
+    e.preventDefault();
+    var nx = $("#next"); if (nx) nx.click(); else validate();
+  });
+  $("#quit").addEventListener("click", function (e) {
+    askConfirm("Quitter la séance ?", "Les réponses déjà validées restent enregistrées.", "Quitter", function () { stopTimer(); renderHome(); show("home"); }, e.currentTarget);
+  });
+  $("#open-rappel2").addEventListener("click", function (e) { openDialog($("#dlg-rappel"), e.currentTarget); });
+  var h = $("#h-session"); h.setAttribute("tabindex", "-1");
+  if (S.idx === 0) h.focus(); else { var first = $("#qform input, #qform select"); (first || h).focus(); }
+}
+function goal() { return Math.ceil(S.items.length * 0.7); }
+
+function readField(i, f) {
+  if (f.k === "ch") { var c = $('input[name="f' + i + '"]:checked'); return c ? c.value : ""; }
+  var el = $("#f" + i); return el ? el.value : "";
+}
+function validate() {
+  var it = S.items[S.idx], q = it.q, msg = $("#formmsg");
+  if (it.status) return;
+  var vals = q.f.map(function (f, i) { return readField(i, f); });
+  var missing = q.f.some(function (f, i) { return it.st[i] !== "ok" && norm(vals[i]) === ""; });
+  if (missing) { msg.textContent = "Complète tous les champs avant de valider."; var e = firstEmpty(it, vals); if (e) e.focus(); return; }
+  msg.textContent = "";
+  var att = it.attempt; it.attempt++;
+  var diags = [];
+  q.f.forEach(function (f, i) {
+    if (it.st[i] === "ok") return;
+    it.ans[att][i] = vals[i];
+    var good = f.k === "in" ? accepts(f, vals[i]) : vals[i] === f.a;
+    if (good) { it.st[i] = att === 0 ? "ok" : "ok2"; if (att === 1) it.st[i] = "ok2"; }
+    else {
+      it.st[i] = "ko";
+      var d = f.k === "in" ? diagnose(f.a, vals[i], f) : { cat: q.s === 7 ? "choix" : (q.s === 6 && i === 0 ? "reco" : "reco"), hint: null, msg: null };
+      if (att === 0) it.cats.push(d.cat);
+      diags[i] = d;
+    }
+  });
+  // On fige les champs justes (ok au 1er essai reste "ok")
+  q.f.forEach(function (f, i) { if (it.st[i] === "ok2" && att === 0) it.st[i] = "ok"; });
+  var anyKo = it.st.some(function (s) { return s === "ko"; });
+  if (anyKo && att === 0) { showHint(it, diags); return; }
+  finish(it, diags);
+}
+function firstEmpty(it, vals) {
+  for (var i = 0; i < it.q.f.length; i++) if (it.st[i] !== "ok" && norm(vals[i]) === "") {
+    return it.q.f[i].k === "ch" ? $('input[name="f' + i + '"]') : $("#f" + i);
+  }
+  return null;
+}
+function markFields(it, final) {
+  it.q.f.forEach(function (f, i) {
+    var st = it.st[i], ok = st === "ok" || st === "ok2";
+    if (f.k === "ch") {
+      $$('input[name="f' + i + '"]').forEach(function (r) {
+        var lab = r.closest(".choice"), tag = $(".tag", lab);
+        lab.classList.remove("is-ok", "is-ko"); tag.textContent = "";
+        if (r.checked && ok) { lab.classList.add("is-ok"); tag.textContent = "✓ juste"; }
+        else if (r.checked && st === "ko") { lab.classList.add("is-ko"); tag.textContent = "✗ à revoir"; }
+        else if (final && !ok && r.value === f.a) { lab.classList.add("is-ok"); tag.textContent = "✓ attendu"; }
+        if (ok || final) r.disabled = true;
+      });
+      if (!ok && !final) { var chk = $('input[name="f' + i + '"]:checked'); if (chk) chk.checked = false; }
+    } else {
+      var slot = $('[data-slot="' + i + '"]'), el = $("#f" + i), mk = $(".mark", slot);
+      slot.classList.remove("st-ok", "st-ko");
+      slot.classList.add(ok ? "st-ok" : "st-ko");
+      mk.textContent = ok ? "✓" : "✗";
+      el.setAttribute("aria-invalid", ok ? "false" : "true");
+      if (ok || final) { if (el.tagName === "SELECT") el.disabled = true; else el.readOnly = true; }
+    }
+  });
+}
+function fieldName(it, i) {
+  var f = it.q.f[i], n = it.q.f.length;
+  if (it.q.s === 5) return "« " + f.l + " »";
+  if (f.k === "ch" && f.l) return f.l;
+  if (f.k === "sel") return "Choix " + (i + 1) + " (" + it.opts[i].join(" ou ") + ")";
+  return n > 1 ? "Réponse " + (i + 1) : "Ta correction";
+}
+function showHint(it, diags) {
+  markFields(it, false);
+  var lines = [], q = it.q, se = serie(q.s);
+  it.q.f.forEach(function (f, i) {
+    if (it.st[i] !== "ko") return;
+    var d = diags[i], h = d && d.hint;
+    if (!h && f.k === "sel") h = "Ce verbe décrit-il la situation, ou fait-il avancer l’histoire ? Repère les mots comme « soudain », « chaque », « depuis »…";
+    if (!h) h = q.h || se.h;
+    lines.push("<li>" + (it.q.f.length > 1 ? "<strong>" + esc(fieldName(it, i)) + " :</strong> " : "") + esc(h) + "</li>");
+  });
+  var okCount = it.st.filter(function (s) { return s === "ok"; }).length;
+  $("#fb").innerHTML = '<div class="fb hint" tabindex="-1"><h3><span class="badge" aria-hidden="true">?</span> Pas tout à fait. Deuxième essai !</h3>' +
+    (it.q.f.length > 1 && okCount ? "<p>" + plural(okCount, "réponse est déjà juste", "réponses sont déjà justes") + " (✓). Corrige seulement celles marquées ✗.</p>" : "") +
+    "<ul>" + lines.join("") + "</ul><p class=\"note\">Besoin d’un coup de main ? Le rappel de cours est juste en dessous.</p></div>";
+  $("#validate").textContent = "Valider mon deuxième essai";
+  for (var i = 0; i < it.q.f.length; i++) if (it.st[i] === "ko") {
+    var t = it.q.f[i].k === "ch" ? $('input[name="f' + i + '"]:not([disabled])') : $("#f" + i);
+    if (t) { if (t.select) try { t.select(); } catch (e) {} t.focus(); break; }
+  }
+}
+function finish(it, diags) {
+  markFields(it, true);
+  var q = it.q, allOk = it.st.every(function (s) { return s === "ok" || s === "ok2"; });
+  var first = it.st.every(function (s) { return s === "ok"; }) && it.attempt === 1;
+  it.status = first ? "f" : (allOk ? "s" : "m");
+  var gain = it.status === "f" ? POINTS_FIRST : (it.status === "s" ? POINTS_SECOND : 0);
+  S.pts += gain;
+  // enregistrement
+  var r = store.prog[q.id] || { n: 0, f: 0, s: 0, m: 0 };
+  r.n++; r[it.status]++; r.last = it.status; r.t = Date.now(); store.prog[q.id] = r;
+  var ix = store.errors.indexOf(q.id);
+  if (it.status === "f") { if (ix >= 0) store.errors.splice(ix, 1); }
+  else if (ix < 0) store.errors.push(q.id);
+  if (store.motiv.points) store.points += gain;
+  save();
+  var cls = it.status === "f" ? "ok" : (it.status === "s" ? "mid" : "ko");
+  var title = pickOne(it.status === "f" ? ["Bien vu, du premier coup !", "Parfait, rien à redire.", "Exact du premier coup.", "Impeccable !"] :
+    (it.status === "s" ? ["Bien rattrapé !", "Réussi au deuxième essai.", "Corrigé, et c’est juste !"] : ["Pas cette fois. Regarde la correction.", "Raté, mais ça se rattrape. Voici la correction."]));
+  var badge = it.status === "f" ? "✓" : (it.status === "s" ? "↻" : "✗");
+  var sub = it.status === "s" ? "<p>L’indice a fait son travail : c’est comme ça qu’on progresse.</p>" :
+    (it.status === "m" ? "<p>Lis l’explication, c’est là que tu apprends. Cette question t’attendra dans « Mes erreurs ».</p>" : "");
+  var rows = q.f.map(function (f, i) {
+    var st = it.st[i], ok = st === "ok" || st === "ok2";
+    var a1 = it.ans[0][i], a2 = it.ans[1][i];
+    var mine = st === "ok" ? a1 : (a2 !== undefined ? a2 : a1);
+    var stTxt = st === "ok" ? '<span class="ok-t">✓ Juste</span>' : (st === "ok2" ? '<span class="mid-t">↻ Juste au 2e essai</span>' : '<span class="ko-t">✗ À revoir</span>');
+    var why = [];
+    if (!ok && f.k === "in") why.push(diagnose(f.a, mine, f).msg);
+    if (st === "ok2" && f.k === "in" && a1 !== undefined) why.push("Au premier essai, tu avais écrit « " + a1 + " ». " + diagnose(f.a, a1, f).msg);
+    if (f.k === "sel" && f.e && EMPLOI[f.e]) why.push(EMPLOI[f.e]);
+    else if (f.e) why.push(f.e);
+    return '<li class="row"><span class="rh">' + esc(fieldName(it, i)) + " — " + stTxt + "</span><dl>" +
+      "<dt>Ta réponse</dt><dd>" + esc(mine || "—") + (st === "ok2" && a1 ? ' <span class="note">(1er essai : ' + esc(a1) + ")</span>" : "") + "</dd>" +
+      "<dt>Réponse attendue</dt><dd>" + esc(f.a) + "</dd></dl>" +
+      (why.length ? '<p class="why">' + why.map(esc).join(" ") + "</p>" : "") + "</li>";
+  }).join("");
+  var last = S.idx === S.items.length - 1;
+  $("#fb").innerHTML = '<div class="fb ' + cls + '" tabindex="-1"><h3><span class="badge" aria-hidden="true">' + badge + "</span> " + title +
+    (store.motiv.points && gain ? ' <span class="pts">+' + gain + " points</span>" : "") + "</h3>" + sub +
+    '<ul class="rows">' + rows + "</ul>" + (q.ex ? '<p class="why"><strong>À retenir :</strong> ' + esc(q.ex) + "</p>" : "") + "</div>";
+  var sp = $("#spts"); if (sp) sp.textContent = S.pts;
+  var act = $("#qactions");
+  act.innerHTML = '<button type="button" class="btn btn-primary" id="next">' + (last ? "Voir mon bilan" : "Question suivante") + ' <span aria-hidden="true">→</span></button>' +
+    '<button type="button" class="btn btn-ghost" id="open-rappel3">Ouvrir le rappel de cours</button>';
+  $("#open-rappel3").addEventListener("click", function (e) { openDialog($("#dlg-rappel"), e.currentTarget); });
+  $("#next").addEventListener("click", function () {
+    if (last) { endSession(); } else { S.idx++; renderQuestion(); }
+  });
+  $("#next").focus();
+}
+
+/* ---------- Bilan ---------- */
+function endSession() {
+  S.end = Date.now(); stopTimer();
+  store.sessions++; save();
+  renderSummary(); show("summary");
+}
+function renderSummary() {
+  var its = S.items, nf = 0, ns = 0, nm = 0, cats = {}, bySerie = {};
+  its.forEach(function (it) {
+    if (it.status === "f") nf++; else if (it.status === "s") ns++; else nm++;
+    it.cats.forEach(function (c) { cats[c] = (cats[c] || 0) + 1; });
+    if (it.status !== "f") bySerie[it.q.s] = (bySerie[it.q.s] || 0) + 1;
+  });
+  var M = store.motiv, reached = nf + ns >= goal();
+  var catList = Object.keys(cats).sort(function (a, b) { return cats[b] - cats[a]; });
+  var serList = Object.keys(bySerie).sort(function (a, b) { return bySerie[b] - bySerie[a]; });
+  var missed = its.filter(function (it) { return it.status === "m"; }).map(function (it) { return it.q; });
+  var helped = its.filter(function (it) { return it.status === "s"; }).map(function (it) { return it.q; });
+  var html = '<h2 id="h-summary">Bilan de la séance</h2><p class="lead">' + esc(modeLabel(S.mode)) + " · " + plural(its.length, "question", "questions") + "</p>" +
+    '<div class="tiles">' +
+    '<div class="tile t-ok"><span class="n">' + nf + '</span><span class="l">✓ réussies du premier coup</span></div>' +
+    '<div class="tile t-mid"><span class="n">' + ns + '</span><span class="l">↻ réussies au 2e essai</span></div>' +
+    '<div class="tile t-ko"><span class="n">' + nm + '</span><span class="l">✗ à revoir</span></div>' +
+    (M.points ? '<div class="tile"><span class="n">' + S.pts + '</span><span class="l">points gagnés</span></div>' : "") +
+    (M.timer ? '<div class="tile"><span class="n" style="font-size:1.4rem">' + fmtTime(S.end - S.start) + '</span><span class="l">temps écoulé</span></div>' : "") +
+    "</div>" +
+    (M.goal ? '<p class="tip">' + (reached ? "<strong>Objectif atteint</strong> : " + (nf + ns) + " réussites pour " + goal() + " visées. Bien joué !" :
+      "<strong>Objectif pas encore atteint</strong> : " + (nf + ns) + " réussites pour " + goal() + " visées. Refais les questions manquées : c’est là que tu gagnes le plus.") + "</p>" : "") +
+    '<div class="section"><h3>Points à retravailler</h3>' +
+    (catList.length || serList.length ?
+      '<ul class="list">' + catList.map(function (c) { return "<li>" + esc(CATS[c] || c) + " : " + plural(cats[c], "erreur", "erreurs") + "</li>"; }).join("") +
+      serList.map(function (s) { return "<li>Chapitre " + s + " · " + esc(serie(+s).t) + " : " + plural(bySerie[s], "question non réussie", "questions non réussies") + " du premier coup</li>"; }).join("") + "</ul>" +
+      '<p class="note">Le rappel de cours (en haut de la page) reprend chacun de ces points.</p>'
+      : "<p>Rien à signaler : toutes les réponses étaient justes du premier coup.</p>") + "</div>" +
+    '<div class="section"><h3>Détail des questions</h3><ol class="list">' +
+    its.map(function (it) {
+      var t = it.status === "f" ? '<span class="ok-t">✓ Du premier coup</span>' : (it.status === "s" ? '<span class="mid-t">↻ Au 2e essai</span>' : '<span class="ko-t">✗ À revoir</span>');
+      return "<li><strong>Chapitre " + it.q.s + "</strong> — " + t + "<br>" + esc(shortQ(it.q)) +
+        (it.status !== "f" ? '<br><span class="note">Réponse attendue : ' + esc(expected(it.q)) + "</span>" : "") + "</li>";
+    }).join("") + "</ol></div>" +
+    '<div class="actions section">' +
+    (missed.length ? '<button type="button" class="btn btn-primary" id="redo-missed">Refaire les ' + plural(missed.length, "question manquée", "questions manquées") + "</button>" : "") +
+    (helped.length ? '<button type="button" class="btn' + (missed.length ? "" : " btn-primary") + '" id="redo-helped">Refaire ' + (helped.length > 1 ? "les " + helped.length + " questions réussies" : "la question réussie") + " au 2e essai</button>" : "") +
+    '<button type="button" class="btn" id="again">Nouvelle séance (mêmes réglages)</button>' +
+    '<button type="button" class="btn btn-ghost" id="home2">Retour à l’accueil</button></div>';
+  $("#screen-summary").innerHTML = html;
+  if (missed.length) $("#redo-missed").addEventListener("click", function () { startSession("redo", missed.length, shuffle(missed)); });
+  if (helped.length) $("#redo-helped").addEventListener("click", function () { startSession("redo", helped.length, shuffle(helped)); });
+  var prevMode = S.mode === "redo" ? (store.last.mode || "path") : S.mode, prevSize = S.mode === "redo" ? (store.last.size || 10) : S.size;
+  $("#again").addEventListener("click", function () { startSession(prevMode, prevSize); });
+  $("#home2").addEventListener("click", function () { renderHome(); show("home"); });
+}
+function expected(q) {
+  if (q.s === 6) return "« " + q.f[0].a + " » → « " + q.f[1].a + " »";
+  if (q.p && /\[\[/.test(q.p)) return q.p.replace(/\[\[(\d+)\]\]/g, function (m, k) { return q.f[+k].a; });
+  return q.f.map(function (f) { return f.a; }).join(" / ");
+}
+function shortQ(q) {
+  var t = q.p ? q.p.replace(/\[\[\d+\]\]/g, "…") : "";
+  if (q.s === 1 && !q.p) t = q.f[0].o.join(" · ");
+  return t.length > 140 ? t.slice(0, 137) + "…" : t;
+}
+
+/* ---------- Progression ---------- */
+function renderProgress() {
+  cleanErrors();
+  var tot = BANK.length, m = BANK.filter(function (q) { return mastered(q.id); }).length;
+  var seen = BANK.filter(function (q) { return rec(q.id); }).length;
+  var html = '<h2 id="h-progress">Ma progression</h2>' +
+    '<p class="note">Une question est « maîtrisée » quand ta dernière réponse était juste du premier coup.</p>' +
+    '<div class="tiles"><div class="tile t-ok"><span class="n">' + m + '</span><span class="l">questions maîtrisées sur ' + tot + "</span></div>" +
+    '<div class="tile"><span class="n">' + seen + '</span><span class="l">questions déjà rencontrées</span></div>' +
+    '<div class="tile t-ko"><span class="n">' + store.errors.length + '</span><span class="l">erreurs à reprendre</span></div>' +
+    '<div class="tile"><span class="n">' + store.sessions + '</span><span class="l">séances terminées</span></div>' +
+    (store.motiv.points ? '<div class="tile"><span class="n">' + store.points + '</span><span class="l">points au total</span></div>' : "") + "</div>" +
+    '<div class="section"><h3>Par chapitre</h3><ul class="list">' +
+    SERIES.map(function (s) {
+      var st = seriesStats(s.n), pc = Math.round(st.m / st.total * 100);
+      return '<li><div class="prow"><span><strong>Chapitre ' + s.n + " · " + esc(s.t) + "</strong></span><span>" + st.m + " / " + st.total + " (" + pc + " %)</span></div>" +
+        '<div class="bar" role="img" aria-label="' + pc + ' % maîtrisé"><span style="width:' + pc + '%"></span></div>' +
+        '<span class="note">' + plural(st.seen, "question rencontrée", "questions rencontrées") + "</span></li>";
+    }).join("") + "</ul></div>" +
+    '<div class="actions section"><button type="button" class="btn btn-primary" id="p-errors"' + (store.errors.length ? "" : " disabled") + ">Reprendre mes erreurs</button>" +
+    '<button type="button" class="btn" id="p-options">Options et réinitialisation</button>' +
+    '<button type="button" class="btn btn-ghost" id="p-home">Retour à l’accueil</button></div>';
+  $("#screen-progress").innerHTML = html;
+  $("#p-errors").addEventListener("click", function () { startSession("errors", store.last.size || 10); });
+  $("#p-options").addEventListener("click", function () { renderOptions(); show("options"); });
+  $("#p-home").addEventListener("click", function () { renderHome(); show("home"); });
+}
+
+/* ---------- Options ---------- */
+function renderOptions() {
+  var M = store.motiv;
+  var html = '<h2 id="h-options">Options et motivation</h2>' +
+    '<p class="lead">Active seulement ce qui te motive. Ces options ne changent rien aux exercices ni aux corrections.</p>' +
+    '<div class="card"><fieldset><legend>Motivation (facultatif)</legend>' +
+    sw("m-points", M.points, "Points", "10 points pour une réponse juste du premier coup, 6 points au deuxième essai.") +
+    sw("m-goal", M.goal, "Objectif de séance", "Vise au moins 7 réussites sur 10 (premier ou deuxième essai)." ) +
+    sw("m-timer", M.timer, "Chronomètre", "Affiche seulement le temps écoulé. Aucune limite de temps : tu avances à ton rythme.") +
+    "</fieldset></div>" +
+    '<div class="card section"><h3>Mes données</h3><p>Ta progression et tes réglages sont enregistrés uniquement dans ce navigateur' + (storageOK ? "." : " (stockage indisponible : rien n’est conservé).") + "</p>" +
+    '<button type="button" class="btn" id="reset-data">Effacer ma progression et mes réglages</button></div>' +
+    '<div class="actions section"><button type="button" class="btn btn-primary" id="o-home">Retour à l’accueil</button></div>';
+  $("#screen-options").innerHTML = html;
+  [["m-points", "points"], ["m-goal", "goal"], ["m-timer", "timer"]].forEach(function (p) {
+    $("#" + p[0]).addEventListener("change", function (e) { store.motiv[p[1]] = e.target.checked; save(); });
+  });
+  $("#reset-data").addEventListener("click", function () {
+    askConfirm("Tout effacer ?", "Ta progression, tes erreurs à reprendre et tes réglages seront supprimés. Impossible de revenir en arrière.", "Tout effacer", function () {
+      store = defaults();
+      try { window.localStorage.removeItem(KEY); } catch (e) {}
+      save(); applyPrefs(); syncPrefsUI(); renderOptions(); show("options");
+      var h = $("#h-options"); if (h) h.insertAdjacentHTML("afterend", '<p class="tip" role="status">Données effacées. Tu repars de zéro.</p>');
+    }, $("#reset-data"));
+  });
+  $("#o-home").addEventListener("click", function () { renderHome(); show("home"); });
+}
+function sw(id, on, t, d) {
+  return '<label class="switch"><input type="checkbox" id="' + id + '"' + (on ? " checked" : "") + '><span><span class="st">' + esc(t) + '</span><span class="sd">' + esc(d) + "</span></span></label>";
+}
+
+/* ---------- Démarrage ---------- */
+function init() {
+  showWarn(); initPrefs(); initDialogs(); initConfirm();
+  $("#btn-home").addEventListener("click", function () {
+    if (S && !$("#screen-session").hidden) {
+      askConfirm("Quitter la séance ?", "Les réponses déjà validées restent enregistrées.", "Quitter", function () { stopTimer(); renderHome(); show("home"); }, $("#btn-home"));
+      return;
+    }
+    renderHome(); show("home");
+  });
+  renderHome();
+  SCREENS.forEach(function (s) { $("#screen-" + s).hidden = s !== "home"; });
+}
+window.__chronique = { BANK: BANK, diagnose: diagnose, norm: norm, accepts: accepts, buildList: buildList, store: function () { return store; }, current: function () { return S && S.items[S.idx]; } };
+if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", init); else init();
+})();
+
+</script>
+</body>
+</html>
